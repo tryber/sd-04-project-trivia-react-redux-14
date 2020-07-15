@@ -1,5 +1,8 @@
+import md5 from 'crypto-js/md5';
+
 const URL = 'https://opentdb.com/';
 const ENDPOINT_TOKEN = 'api_token.php?command=request';
+const GRAVATAR = 'https://www.gravatar.com/avatar/';
 
 export const getToken = () => {
   const TOKEN = fetch(`${URL}${ENDPOINT_TOKEN}`)
@@ -7,6 +10,13 @@ export const getToken = () => {
     resp.json()
     .then((json) => (resp.ok ? Promise.resolve(json) : Promise.reject(json))));
   return TOKEN;
+};
+
+export const getGravatar = (email) => {
+  const hashEmail = md5(email.trim().replace(' ', '').toLowerCase()).toString();
+  const gravatar = `${GRAVATAR}${hashEmail}`;
+  
+  return gravatar;
 };
 
 
