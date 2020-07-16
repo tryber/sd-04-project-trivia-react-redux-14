@@ -1,4 +1,4 @@
-import { getToken } from '../../services/api';
+import { getToken, getQuestions } from '../../services/api';
 
 export const FETCH_DATA = 'FETCH_DATA';
 export const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
@@ -45,7 +45,7 @@ export const fetchQuestions = () => (dispatch) => {
   dispatch(fetchingData(true));
 
   return (
-    getToken().then((data) => {
+    getQuestions().then((data) => {
       if (data.response_code === 0) {
         dispatch(fetchingData(false));
         dispatch(receiveSuccessQuestion(data));

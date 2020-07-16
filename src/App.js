@@ -5,7 +5,6 @@ import './App.css';
 import { fetchToken, fetchQuestions } from './redux/actions';
 import { getGravatar } from './services/api';
 
-
 class App extends Component {
   componentDidMount() {
     const { fetchTokenProp, fetchQuestionsProp } = this.props;
@@ -17,7 +16,7 @@ class App extends Component {
     const emailtest = ' lucaslima Yoshida@gmail.com ';
     const imageURL = getGravatar(emailtest);
 
-    return <img src={imageURL} alt="Avatar Usuário" />
+    return <img src={imageURL} alt="Avatar Usuário" />;
   }
 
   render() {
@@ -33,12 +32,10 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchTokenProp: () => dispatch(fetchToken()),
-    fetchQuestionsProp: () => dispatch(fetchQuestions()),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  fetchTokenProp: () => dispatch(fetchToken()),
+  fetchQuestionsProp: () => dispatch(fetchQuestions()),
+});
 
 const mapStateToProps = (state) => ({
   isFetching: state.tokenReducer.isFetching,

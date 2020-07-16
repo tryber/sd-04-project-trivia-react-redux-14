@@ -8,9 +8,7 @@ export const saveToLocalStorage = (key, entry) => {
   localStorage.setItem(key, formattedEntry);
 };
 
-export const loadFromLocalStorage = (key) => {
-  localStorage.getItem(key);
-};
+export const loadFromLocalStorage = (key) => localStorage.getItem(key);
 
 export const deleteFromLocalStorage = (key) => {
   localStorage.removeItem(key);

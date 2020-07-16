@@ -37,9 +37,3 @@ export const getQuestions = () => {
     }));
   return QUESTIONS;
 };
-
-// Paga pegar as perguntas, você deve realizar um GET request para o seguinte endpoint:
-
-// https://opentdb.com/api.php?amount=${quantidade-de-perguntas-retornadas}&token=${seu-token-aqui}
-
-// Recomendação: https://opentdb.com/api.php?amount=5&token=${seu-token-aqui}
