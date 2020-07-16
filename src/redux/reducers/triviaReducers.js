@@ -13,7 +13,7 @@ export const tokenReducer = (state = initialState, action) => {
       return { ...state, isFetching: action.isFetching };
 
     case RECEIVE_SUCCESS_TOKEN:
-      return { 
+      return {
         ...state,
         token: action.token,
       };
