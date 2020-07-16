@@ -19,58 +19,55 @@ class StartScreen extends Component {
     fetchQuestionsProp();
     // const emailtest = ' lucaslima Yoshida@gmail.com ';
     const imageURL = getGravatar(email);
+    console.log('só pra tirar o erro do cc', name);
 
     return <img src={imageURL} alt="Avatar Usuário" />;
   };
 
-  renderFieldsetInputs = () => {
-    return (
-      <fieldset className="fieldset-inputs-start-screen">
-        <label htmlFor="input-gravatar-email">Email do Gravatar:</label>
-        <input
-          type="email"
-          data-testid="input-gravatar-email"
-          id="input-gravatar-email"
-          placeholder="<name@email.com>"
-          required
-        />
-        <label htmlFor="input-player-name">Nome do Jogador:</label>
-        <input
-          type="text"
-          data-testid="input-player-name"
-          id="input-player-name"
-          placeholder="<player name>"
-          required
-        />
-      </fieldset>
-    );
-  };
+  renderFieldsetInputs = () => (
+    <fieldset className="fieldset-inputs-start-screen">
+      <label htmlFor="input-gravatar-email">Email do Gravatar:</label>
+      <input
+        type="email"
+        data-testid="input-gravatar-email"
+        id="input-gravatar-email"
+        placeholder="<name@email.com>"
+        required
+      />
+      <label htmlFor="input-player-name">Nome do Jogador:</label>
+      <input
+        type="text"
+        data-testid="input-player-name"
+        id="input-player-name"
+        placeholder="<player name>"
+        required
+      />
+    </fieldset>
+  );
 
-  renderFieldsetButtons = () => {
-    return (
-      <fieldset className="fieldset-buttons-start-screen">
-        <Link to="/settings">
-          <label htmlFor="btn-settings">
-            <button
-              type="button"
-              data-testid="btn-settings"
-              className="btn-settings"
-              id="btn-settings"
-            >
-              OPÇÕES...
-            </button>
-          </label>
-        </Link>
-        <Link to="/trivia">
-          <label htmlFor="btn-play">
-            <button type="submit" data-testid="btn-play" className="btn-play" id="btn-play">
-              JOGAR!
-            </button>
-          </label>
-        </Link>
-      </fieldset>
-    );
-  };
+  renderFieldsetButtons = () => (
+    <fieldset className="fieldset-buttons-start-screen">
+      <Link to="/settings">
+        <label htmlFor="btn-settings">
+          <button
+            type="button"
+            data-testid="btn-settings"
+            className="btn-settings"
+            id="btn-settings"
+          >
+            OPÇÕES...
+          </button>
+        </label>
+      </Link>
+      <Link to="/trivia">
+        <label htmlFor="btn-play">
+          <button type="submit" data-testid="btn-play" className="btn-play" id="btn-play">
+            JOGAR!
+          </button>
+        </label>
+      </Link>
+    </fieldset>
+  );
 
   render() {
     return (
@@ -84,12 +81,12 @@ class StartScreen extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   fetchTokenProp: () => dispatch(fetchToken()),
   fetchQuestionsProp: () => dispatch(fetchQuestions()),
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isFetching: state.tokenReducer.isFetching,
 });
 

@@ -5,7 +5,7 @@ import logo from './trivia.png';
 import './App.css';
 import StartScreen from './components/startScreen';
 import SettingsScreen from './components/settingsScreen';
-import NotFound from './components/notFound'
+import NotFound from './components/notFound';
 
 class App extends Component {
   render() {
