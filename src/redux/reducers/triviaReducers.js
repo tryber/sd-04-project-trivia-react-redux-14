@@ -7,10 +7,10 @@ const initialState = {
 };
 
 export const tokenReducer = (state = initialState, action) => {
-    switch (action.type) {
+  switch (action.type) {
 
     case REQUEST_TOKEN:
-        return { ...state, action };
+      return { ...state, action };
 
     case RECEIVE_SUCCESS_TOKEN:
       return { ...state, action };
@@ -19,6 +19,6 @@ export const tokenReducer = (state = initialState, action) => {
       return { ...state, action };
 
     default:
-        return state;
-    };
+      return state;
+  }
 };

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import logo from './trivia.png';
 import './App.css';
 import { fetchToken } from '../src/redux/actions';
