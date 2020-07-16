@@ -1,44 +1,27 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+
 import logo from './trivia.png';
 import './App.css';
-import { fetchToken, fetchQuestions } from './redux/actions';
-import { getGravatar } from './services/api';
+import StartScreen from './components/startScreen';
+import SettingsScreen from './components/settingsScreen';
+import NotFound from './components/notFound'
 
 class App extends Component {
-  componentDidMount() {
-    const { fetchTokenProp, fetchQuestionsProp } = this.props;
-    fetchTokenProp();
-    fetchQuestionsProp();
-  }
-
-  handleAvatar = () => {
-    const emailtest = ' lucaslima Yoshida@gmail.com ';
-    const imageURL = getGravatar(emailtest);
-
-    return <img src={imageURL} alt="Avatar Usuário" />;
-  }
-
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          {this.handleAvatar()}
-          <p>Hello</p>
         </header>
+        <Switch>
+          <Route exact path="/" component={StartScreen} />
+          <Route exact path="/settings" component={SettingsScreen} />
+          <Route component={NotFound} />
+        </Switch>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchTokenProp: () => dispatch(fetchToken()),
-  fetchQuestionsProp: () => dispatch(fetchQuestions()),
-});
-
-const mapStateToProps = (state) => ({
-  isFetching: state.tokenReducer.isFetching,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
