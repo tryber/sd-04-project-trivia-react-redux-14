@@ -1,4 +1,4 @@
-language: node_js
+stlanguage: node_js
 node_js:
   - 10
 addons:
