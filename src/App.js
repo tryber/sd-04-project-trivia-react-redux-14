@@ -3,10 +3,11 @@ import { Route, Switch } from 'react-router-dom';
 
 import logo from './trivia.png';
 import './App.css';
-// import StartScreen from './components/startScreen';
-// import SettingsScreen from './components/settingsScreen';
-// import NotFound from './components/notFound';
+
+import StartScreen from './components/startScreen';
+import SettingsScreen from './components/settingsScreen';
 import FeedbackScreen from './pages/FeedbackScreen';
+import NotFound from './components/notFound';
 
 class App extends Component {
   render() {
@@ -16,9 +17,9 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
         </header>
         <Switch>
-          {/* <Route exact path="/" component={StartScreen} />
+          <Route exact path="/" component={StartScreen} />
           <Route exact path="/settings" component={SettingsScreen} />
-          <Route component={NotFound} /> */}
+          <Route component={NotFound} />
           <Route exact path="/feedback" component={FeedbackScreen} />
         </Switch>
       </div>
