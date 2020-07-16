@@ -4,6 +4,7 @@ export const FETCH_DATA = 'FETCH_DATA';
 export const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
 export const RECEIVE_SUCCESS_TOKEN = 'RECEIVE_SUCCESS_TOKEN';
 export const RECEIVE_SUCCESS_QUESTION = 'RECEIVE_SUCCESS_QUESTION';
+export const SEND_USER_DATA = 'SEND_USER_DATA';
 
 const fetchingData = (bool) => ({
   type: FETCH_DATA,
@@ -56,3 +57,8 @@ export const fetchQuestions = () => (dispatch) => {
     (error) => dispatch(fetchingDataError(error.message))
   );
 };
+
+export const sendUserData = (userData) => ({
+  type: SEND_USER_DATA,
+  userData,
+});
