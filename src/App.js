@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import logo from './trivia.png';
 import './App.css';
-import { fetchToken } from '../src/redux/actions';
-import { getGravatar } from '../src/services/api';
+import { fetchToken, fetchQuestions } from './redux/actions';
+import { getGravatar } from './services/api';
+
 
 class App extends Component {
   componentDidMount() {
-    const { fetchToken } = this.props;
-    fetchToken();
-    
+    const { fetchTokenProp, fetchQuestionsProp } = this.props;
+    fetchTokenProp();
+    fetchQuestionsProp();
   }
 
   handleAvatar = () => {
@@ -18,13 +19,13 @@ class App extends Component {
 
     return <img src={imageURL} alt="Avatar Usuário" />
   }
-  
-  render() { 
+
+  render() {
     return (
-      <div className='App'>
-        <header className='App-header'>
-        <img src={logo} className="App-logo" alt="logo" />
-        {this.handleAvatar()}
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          {this.handleAvatar()}
           <p>Hello</p>
         </header>
       </div>
@@ -34,12 +35,13 @@ class App extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchToken: () => dispatch(fetchToken()),
-  }
-}
+    fetchTokenProp: () => dispatch(fetchToken()),
+    fetchQuestionsProp: () => dispatch(fetchQuestions()),
+  };
+};
 
 const mapStateToProps = (state) => ({
   isFetching: state.tokenReducer.isFetching,
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

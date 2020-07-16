@@ -8,7 +8,7 @@ export const saveToLocalStorage = (key, entry) => {
   localStorage.setItem(key, formattedEntry);
 };
 
-export const getFromLocalStorage = (key) => {
+export const loadFromLocalStorage = (key) => {
   localStorage.getItem(key);
 };
 

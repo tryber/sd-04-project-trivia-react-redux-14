@@ -1,12 +1,18 @@
 import { getToken } from '../../services/api';
 
-export const REQUEST_TOKEN = 'REQUEST_TOKEN';
+export const FETCH_DATA = 'FETCH_DATA';
+export const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
 export const RECEIVE_SUCCESS_TOKEN = 'RECEIVE_SUCCESS_TOKEN';
-export const RECEIVE_ERROR_TOKEN = 'RECEIVE_ERROR_TOKEN';
+export const RECEIVE_SUCCESS_QUESTION = 'RECEIVE_SUCCESS_QUESTION';
 
-const requestToken = (bool) => ({
-  type: REQUEST_TOKEN,
+const fetchingData = (bool) => ({
+  type: FETCH_DATA,
   isFetching: bool,
+});
+
+const fetchingDataError = (error) => ({
+  type: FETCH_DATA_ERROR,
+  error,
 });
 
 const receiveSuccessToken = (apiResponse) => ({
@@ -14,25 +20,39 @@ const receiveSuccessToken = (apiResponse) => ({
   token: apiResponse.token,
 });
 
-const requestErrorToken = (error) => ({
-  type: RECEIVE_ERROR_TOKEN,
-  error,
+export const fetchToken = () => (dispatch) => {
+  dispatch(fetchingData(true));
+
+  return (
+    getToken().then((data) => {
+      if (data.response_code === 0) {
+        dispatch(fetchingData(false));
+        dispatch(receiveSuccessToken(data));
+      } else {
+        dispatch(fetchingDataError('Algo deu errado! Token inválido'));
+      }
+    }),
+    (error) => dispatch(fetchingDataError(error.message))
+  );
+};
+
+const receiveSuccessQuestion = (apiResponse) => ({
+  type: RECEIVE_SUCCESS_QUESTION,
+  questions: apiResponse.results,
 });
 
-export const fetchToken = () => {
-  return (dispatch) => {
-    dispatch(requestToken(true));
+export const fetchQuestions = () => (dispatch) => {
+  dispatch(fetchingData(true));
 
-    return (
-      getToken().then((data) => {
-        if (data.response_code === 0) {
-          dispatch(requestToken(false));
-          dispatch(receiveSuccessToken(data));
-        } else {
-          dispatch(requestErrorToken('Algo deu errado! Token inválido'));
-        }
-      }),
-      (error) => dispatch(requestErrorToken(error.message))
-    );
-  };
+  return (
+    getToken().then((data) => {
+      if (data.response_code === 0) {
+        dispatch(fetchingData(false));
+        dispatch(receiveSuccessQuestion(data));
+      } else {
+        dispatch(fetchingDataError('Algo deu errado! Quest não existe'));
+      }
+    }),
+    (error) => dispatch(fetchingDataError(error.message))
+  );
 };
