@@ -5,10 +5,7 @@ export const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
 export const RECEIVE_SUCCESS_TOKEN = 'RECEIVE_SUCCESS_TOKEN';
 export const RECEIVE_SUCCESS_QUESTION = 'RECEIVE_SUCCESS_QUESTION';
 export const SEND_USER_DATA = 'SEND_USER_DATA';
-<<<<<<< HEAD
 export const SEND_URL_GRAVATAR = 'SEND_URL_GRAVATAR';
-=======
->>>>>>> master
 
 const fetchingData = (bool) => ({
   type: FETCH_DATA,

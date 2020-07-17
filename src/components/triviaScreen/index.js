@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { fetchQuestions } from '../../redux/actions';
 import Header from './Header';
+import Button from '../button';
 
 class TriviaScreen extends Component {
   constructor(props) {
@@ -10,16 +11,19 @@ class TriviaScreen extends Component {
     this.state = {
       userAnswer: null,
       currentIndex: 0,
-      quizEnd: false,
       options: [],
       score: 0,
-      assertions: 0,
+      question: '',
+      answer: '',
       isDisable: true,
+      quizEnd: false,
+      category: '',
+      assertions: 0,
     };
   }
 
   componentDidMount() {
-    const { fetchQuestionsProp, questions } = this.props;
+    const { fetchQuestionsProp } = this.props;
     fetchQuestionsProp();
     this.loadQuiz();
   }
@@ -35,7 +39,9 @@ class TriviaScreen extends Component {
 
   nextQuestionHandler = (e) => {
     e.preventDefault();
-    const { userAnswer, answer, score, currentIndex } = this.state;
+    const {
+      userAnswer, answer, score, currentIndex,
+    } = this.state;
     const { data } = this.props;
 
     if (currentIndex === data.length - 1) return this.finishHandler();
@@ -60,7 +66,7 @@ class TriviaScreen extends Component {
   loadQuiz() {
     const { currentIndex } = this.state;
     const { data } = this.props;
-
+    console.log(data)
     this.setState({
       question: data[currentIndex].question,
       options: data[currentIndex].incorrect_answers.concat(data[currentIndex].correct_answer),
@@ -70,19 +76,28 @@ class TriviaScreen extends Component {
   }
 
   render() {
-    const { question, category, quizEnd, isDisable } = this.state;
+    const {
+      question, category, quizEnd, isDisable, currentIndex,
+    } = this.state;
+    const { data } = this.props;
+
     if (quizEnd) return <Redirect to="/feedback" />;
 
     return (
       <div>
         <Header />
         <div>
-          <span>Categoria: {category} </span>
-          <span> Questão: {question}</span>
+          <span>
+            {category}
+          </span>
+          <span>
+            Questão:
+            {question}
+          </span>
           <span>{`Questão ${currentIndex + 1} de ${data.length}`}</span>
         </div>
         <Button
-          isDisable
+          isDisable={isDisable}
           type="button"
           data-testid="btn-next"
           onClick={(e) => this.nextQuestionHandler(e)}
@@ -95,7 +110,7 @@ class TriviaScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  data: state.userDataReducer.question,
+  data: state.questionsReducer.questions,
 });
 
 const mapDispatchToProps = (dispatch) => ({

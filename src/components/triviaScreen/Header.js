@@ -6,8 +6,8 @@ import { getGravatar } from '../../services/api';
 class Header extends Component {
   componentDidMount() {
     const { sendUrlGravatarProps, email } = this.props;
-
-    sendUrlGravatarProps(getGravatar(email));
+    const urlEmail = getGravatar(email);
+    sendUrlGravatarProps(urlEmail);
   }
 
   render() {
