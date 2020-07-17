@@ -1,10 +1,11 @@
-import { FETCH_DATA, RECEIVE_SUCCESS_TOKEN, FETCH_DATA_ERROR, RECEIVE_SUCCESS_QUESTION } from '../actions';
+import { FETCH_DATA, RECEIVE_SUCCESS_TOKEN, FETCH_DATA_ERROR, RECEIVE_SUCCESS_QUESTION, SEND_USER_DATA } from '../actions';
 
 const initialState = {
   isFetching: false,
   error: '',
   token: '',
   questions: [],
+  player: {},
 };
 
 export const tokenReducer = (state = initialState, action) => {
@@ -40,6 +41,21 @@ export const questionsReducer = (state = initialState, action) => {
     case FETCH_DATA_ERROR:
       return { ...state, error: action.error };
 
+    default:
+      return state;
+  }
+};
+
+export const userDataReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SEND_USER_DATA:
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          ...action.userData,
+        },
+      };
     default:
       return state;
   }
