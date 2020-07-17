@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { sendUrlGravatar } from '../../redux/actions';
+import { sendUrlGravatar } from '../../redux/actions/actionToken';
 import { getGravatar } from '../../services/api';
 
 class Header extends Component {

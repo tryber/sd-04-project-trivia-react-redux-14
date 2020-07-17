@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { fetchQuestions } from '../../redux/actions';
+import { fetchQuestions } from '../../redux/actions/actionQuest';
 import Header from './Header';
 import Button from '../button';
 
@@ -76,12 +76,8 @@ class TriviaScreen extends Component {
 
   render() {
     const {
-      quizEnd, isDisable, currentIndex, isLoading,
-    } = this.state;
+      quizEnd, isDisable, currentIndex } = this.state;
     const { data, isFetchingToken, isFetchingQuestion } = this.props;
-    console.log(data)
-    console.log("quest", isFetchingQuestion)
-    console.log("token", isFetchingToken)
 
     if (isFetchingToken || isFetchingQuestion) return <div>Loading...</div>;
     if (quizEnd) return <Redirect to="/feedback" />;

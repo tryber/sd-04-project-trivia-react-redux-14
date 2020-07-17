@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
-import { fetchToken, fetchQuestions, sendUserData } from '../../redux/actions';
+import { fetchToken } from '../../redux/actions/actionToken';
+import { sendUserData } from '../../redux/actions';
 import '../../App.css';
 import Button from '../button';
 
@@ -117,7 +118,6 @@ class StartScreen extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchTokenProp: () => dispatch(fetchToken()),
-  fetchQuestionsProp: () => dispatch(fetchQuestions()),
   sendUserDataProp: (userData) => dispatch(sendUserData(userData)),
 });
 

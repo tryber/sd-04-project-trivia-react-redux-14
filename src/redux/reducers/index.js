@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
-import { tokenReducer, questionsReducer, userDataReducer } from './triviaReducers';
+import tokenReducer from './tokenReducer';
+import questionsReducer from './questionsReducer';
+import userDataReducer from './userDataReducer';
 
 const rootReducer = combineReducers({
   tokenReducer,
