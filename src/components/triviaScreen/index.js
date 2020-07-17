@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchQuestions } from '../../redux/actions';
-import HeaderGame from './HeaderGame';
+import Header from './Header';
 import Quiz from './Quiz';
 import data from './data';
 
-class GameScreen extends Component {
+class TriviaScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -67,7 +67,7 @@ class GameScreen extends Component {
   }
 
   render() {
-    const { question, quizEnd, isDisable,  } = this.state;
+    const { question, quizEnd, isDisable } = this.state;
     if (quizEnd) {
       <Redirect to='/feedback' />;
     }
@@ -91,4 +91,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchQuestionsProp: () => dispatch(fetchQuestions()),
 });
 
-export default connect(null, mapDispatchToProps)(GameScreen);
+export default connect(null, mapDispatchToProps)(TriviaScreen);

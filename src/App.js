@@ -5,7 +5,7 @@ import './App.css';
 import StartScreen from './components/startScreen';
 import SettingsScreen from './components/settingsScreen';
 import NotFound from './components/notFound';
-import GameScreen from './components/gameScreen';
+import TriviaScreen from './components/triviaScreen';
 
 class App extends Component {
   render() {
@@ -17,6 +17,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={StartScreen} />
           <Route exact path="/settings" component={SettingsScreen} />
+          <Route exact path="/trivia" component={TriviaScreen} />
           <Route component={NotFound} />
         </Switch>
       </div>

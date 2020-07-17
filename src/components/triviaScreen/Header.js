@@ -1,7 +1,7 @@
 import React from 'react';
 import { getGravatar } from '../../services/api';
 
-class HeaderGame extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,4 +23,4 @@ class HeaderGame extends React.Component {
   }
 }
 
-export default HeaderGame;
+export default Header;
