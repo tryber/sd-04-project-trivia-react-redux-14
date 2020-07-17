@@ -10,16 +10,16 @@ import Button from '../button';
 class StartScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { goPlay: false, isDisabled: true, };
+    this.state = { goPlay: false, isDisabled: true };
   }
 
   componentDidMount() {
-    const { fetchTokenProp } = this.props; //  corrigir proptypes
+    const { fetchTokenProp } = this.props;
     fetchTokenProp();
   }
 
   handleUser = (gravatarEmail, name) => {
-    const { sendUserDataProp } = this.props; // corrigir proptypes
+    const { sendUserDataProp } = this.props;
     const player = {
       name,
       assertions: 0,
@@ -31,18 +31,18 @@ class StartScreen extends Component {
 
   handleInput = (type, event) => {
     const { value } = event.target;
-    const { sendUserDataProp, name, gravatarEmail } = this.props; // proptypes
+    const { sendUserDataProp, name, gravatarEmail } = this.props;
 
     if (name && gravatarEmail) {
       this.setState({ isDisabled: false });
     }
     if (type === 'email') {
-      return sendUserDataProp({ gravatarEmail: value }); // corrigir proptypes
+      return sendUserDataProp({ gravatarEmail: value });
     }
-    return sendUserDataProp({ name: value }); //tbm
+    return sendUserDataProp({ name: value });
   };
 
-  playTrivia = e => {
+  playTrivia = (e) => {
     e.preventDefault();
     const { name, gravatarEmail } = this.props;
 
@@ -60,7 +60,7 @@ class StartScreen extends Component {
         data-testid="input-gravatar-email"
         id="input-gravatar-email"
         placeholder="<name@email.com>"
-        onChange={e => this.handleInput('email', e)}
+        onChange={(e) => this.handleInput('email', e)}
         required
       />
       <label htmlFor="input-player-name">Nome do Jogador:</label>
@@ -69,7 +69,7 @@ class StartScreen extends Component {
         data-testid="input-player-name"
         id="input-player-name"
         placeholder="<player name>"
-        onChange={e => this.handleInput('name', e)}
+        onChange={(e) => this.handleInput('name', e)}
         required
       />
     </fieldset>
@@ -133,12 +133,9 @@ const mapStateToProps = (state) => ({
 });
 
 StartScreen.propTypes = {
-  fetchTokenProp: Proptypes.func.isRequired,
-  fetchQuestionsProp: Proptypes.func.isRequired,
-  sendUserDataProp: Proptypes.func.isRequired,
-  isFetching: Proptypes.bool.isRequired,
-  gravatarEmail: Proptypes.object.isRequired,
-  name: Proptypes.object.isRequired,
+  sendUserDataProp: Proptypes.any.isRequired,
+  gravatarEmail: Proptypes.any.isRequired,
+  name: Proptypes.any.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartScreen);
