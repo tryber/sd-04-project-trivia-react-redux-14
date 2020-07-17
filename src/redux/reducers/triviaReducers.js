@@ -1,4 +1,4 @@
-import { FETCH_DATA, RECEIVE_SUCCESS_TOKEN, FETCH_DATA_ERROR, RECEIVE_SUCCESS_QUESTION, SEND_USER_DATA } from '../actions';
+import { FETCH_DATA, RECEIVE_SUCCESS_TOKEN, FETCH_DATA_ERROR, RECEIVE_SUCCESS_QUESTION, SEND_USER_DATA, SEND_URL_GRAVATAR } from '../actions';
 
 const initialState = {
   isFetching: false,
@@ -6,6 +6,7 @@ const initialState = {
   token: '',
   questions: [],
   player: {},
+  picture: '',
 };
 
 export const tokenReducer = (state = initialState, action) => {
@@ -55,6 +56,11 @@ export const userDataReducer = (state = initialState, action) => {
           ...state.player,
           ...action.userData,
         },
+      };
+    case SEND_URL_GRAVATAR:
+      return {
+        ...state,
+        picture: action.url,
       };
     default:
       return state;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { fetchQuestions } from '../../redux/actions';
 import Header from './Header';
 import Quiz from './Quiz';
-import data from './data';
 
 class TriviaScreen extends Component {
   constructor(props) {
@@ -34,8 +34,10 @@ class TriviaScreen extends Component {
 
   finishHandler = () => this.setState({ quizEnd: true });
 
-  nextQuestionHandler = () => {
+  nextQuestionHandler = (e) => {
+    e.preventDefault();
     const { userAnswer, answer, score, currentIndex } = this.state;
+    const { data } = this.props;
 
     if (currentIndex === data.length - 1) return this.finishHandler();
 
@@ -58,6 +60,8 @@ class TriviaScreen extends Component {
 
   loadQuiz() {
     const { currentIndex } = this.state;
+    const { data } = this.props;
+
     this.setState({
       question: data[currentIndex].question,
       options: data[currentIndex].incorrect_answers.concat(data[currentIndex].correct_answer),
@@ -68,18 +72,18 @@ class TriviaScreen extends Component {
 
   render() {
     const { question, quizEnd, isDisable } = this.state;
-    if (quizEnd) {
-      <Redirect to='/feedback' />;
-    }
+    if (quizEnd) return <Redirect to="/feedback" />;
+
     return (
       <div>
-        <HeaderGame />
+        <Header />
         <Quiz />
-        <Button 
+        <Button
           isDisable
           type="button"
-
-        >
+          data-testid="btn-next"
+          onClick={(e) => this.nextQuestionHandler(e)}
+          >
           Próxima
         </Button>
       </div>
@@ -87,8 +91,12 @@ class TriviaScreen extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  data: state.userDataReducer.question,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   fetchQuestionsProp: () => dispatch(fetchQuestions()),
 });
 
-export default connect(null, mapDispatchToProps)(TriviaScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(TriviaScreen);
