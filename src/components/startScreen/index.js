@@ -133,9 +133,10 @@ const mapStateToProps = (state) => ({
 });
 
 StartScreen.propTypes = {
-  sendUserDataProp: Proptypes.any.isRequired,
-  gravatarEmail: Proptypes.any.isRequired,
-  name: Proptypes.any.isRequired,
-}
+  fetchTokenProp: Proptypes.func.isRequired,
+  sendUserDataProp: Proptypes.func.isRequired,
+  gravatarEmail: Proptypes.string.isRequired,
+  name: Proptypes.string.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartScreen);
