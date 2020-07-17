@@ -8,7 +8,7 @@ const Button = ({ type, isDisabled, children, ...props }) => {
         {children}
       </button>
     );
-  };
+  }
   return <button {...props}>{children}</button>
 };
 
