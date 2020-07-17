@@ -9,13 +9,13 @@ const Button = ({ type, isDisabled, children, ...props }) => {
       </button>
     );
   }
-  return <button {...props}>{children}</button>
+  return <button {...props}>{children}</button>;
 };
 
 Button.protoTypes = {
   type: Proptypes.string.isRequired,
   isDisabled: Proptypes.bool,
   children: Proptypes.object,
-}
+};
 
 export default Button;
