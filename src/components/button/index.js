@@ -12,10 +12,10 @@ const Button = ({ type, isDisabled, children, ...props }) => {
   return <button {...props}>{children}</button>;
 };
 
-Button.protoTypes = {
-  type: Proptypes.string.isRequired,
-  isDisabled: Proptypes.bool,
-  children: Proptypes.object,
+Button.propTypes = {
+  type: Proptypes.string,
+  isDisabled: Proptypes.bool.isRequired,
+  children: Proptypes.object.isRequired,
 };
 
 export default Button;
