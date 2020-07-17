@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { fetchQuestions } from '../../redux/actions';
 import Header from './Header';
-import Quiz from './Quiz';
 
 class TriviaScreen extends Component {
   constructor(props) {
@@ -71,19 +70,23 @@ class TriviaScreen extends Component {
   }
 
   render() {
-    const { question, quizEnd, isDisable } = this.state;
+    const { question, category, quizEnd, isDisable } = this.state;
     if (quizEnd) return <Redirect to="/feedback" />;
 
     return (
       <div>
         <Header />
-        <Quiz />
+        <div>
+          <span>Categoria: {category} </span>
+          <span> Questão: {question}</span>
+          <span>{`Questão ${currentIndex + 1} de ${data.length}`}</span>
+        </div>
         <Button
           isDisable
           type="button"
           data-testid="btn-next"
           onClick={(e) => this.nextQuestionHandler(e)}
-          >
+        >
           Próxima
         </Button>
       </div>
