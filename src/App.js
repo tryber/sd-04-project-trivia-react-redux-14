@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
+import store from './redux/store';
 import logo from './trivia.png';
 import './App.css';
 import StartScreen from './components/startScreen';
@@ -10,16 +12,20 @@ import NotFound from './components/notFound';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
-        <Switch>
-          <Route exact path="/" component={StartScreen} />
-          <Route exact path="/settings" component={SettingsScreen} />
-          <Route component={NotFound} />
-        </Switch>
-      </div>
+      <Provider store={store}>
+        <BrowserRouter>
+          <div className="App">
+            <header className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+            </header>
+            <Switch>
+              <Route exact path="/" component={StartScreen} />
+              <Route exact path="/settings" component={SettingsScreen} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }
