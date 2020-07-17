@@ -19,8 +19,8 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={StartScreen} />
           <Route exact path="/settings" component={SettingsScreen} />
-          <Route component={NotFound} />
           <Route exact path="/feedback" component={FeedbackScreen} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     );
