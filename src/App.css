@@ -23,6 +23,7 @@
 .trivia-screen {
   align-items: center;
   background-color: rgb(15, 15, 15);
+  border: black solid 1px;
   border-radius: 15px;
   color: whitesmoke;
   display: flex;
@@ -77,7 +78,7 @@
 
 .btn-settings {
   align-self: center;
-  background-color: rgb(50, 50, 50);
+  background-color: rgb(50, 27, 200);
   border: none;
   border-radius: 5px;
   color: whitesmoke;
