@@ -1,6 +1,7 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 
-const Button = ({ type, isDisabled, onClickFunction, children, ...props }) => {
+const Button = ({ type, isDisabled, children, ...props }) => {
   if (isDisabled) {
     return (
       <button {...props} disabled>
@@ -8,7 +9,13 @@ const Button = ({ type, isDisabled, onClickFunction, children, ...props }) => {
       </button>
     );
   };
-  return <button {...props}>{children}</button>;
+  return <button {...props}>{children}</button>
 };
 
 export default Button;
+
+Button.protoTypes = {
+  type: Proptypes.string.isRequired,
+  isDisabled: Proptypes.bool,
+  children: Proptypes.object,
+}
