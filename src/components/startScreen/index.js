@@ -13,11 +13,6 @@ class StartScreen extends Component {
     this.state = { goPlay: false, isDisabled: true };
   }
 
-  componentDidMount() {
-    const { fetchTokenProp } = this.props;
-    fetchTokenProp();
-  }
-
   handleUser = (gravatarEmail, name) => {
     const { sendUserDataProp } = this.props;
     const player = {
@@ -44,11 +39,11 @@ class StartScreen extends Component {
 
   playTrivia = (e) => {
     e.preventDefault();
-    const { name, gravatarEmail } = this.props;
+    const { name, gravatarEmail, fetchTokenProp } = this.props;
 
     this.handleUser(gravatarEmail, name);
     this.setState({ goPlay: true });
-
+    fetchTokenProp();
     return console.log('oops');
   };
 

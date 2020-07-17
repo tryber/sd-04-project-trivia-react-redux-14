@@ -1,7 +1,8 @@
-import { FETCH_DATA, RECEIVE_SUCCESS_TOKEN, FETCH_DATA_ERROR, RECEIVE_SUCCESS_QUESTION, SEND_USER_DATA, SEND_URL_GRAVATAR } from '../actions';
+import { FETCH_DATA_TOKEN, FETCH_DATA_QUESTION, RECEIVE_SUCCESS_TOKEN, FETCH_DATA_ERROR, RECEIVE_SUCCESS_QUESTION, SEND_USER_DATA, SEND_URL_GRAVATAR } from '../actions';
 
 const initialState = {
-  isFetching: false,
+  isFetchingToken: false,
+  isFetchingQuestion: false,
   error: '',
   token: '',
   questions: [],
@@ -11,8 +12,9 @@ const initialState = {
 
 export const tokenReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_DATA:
-      return { ...state, isFetching: action.isFetching };
+    case FETCH_DATA_TOKEN:
+      console.log(action)
+      return { ...state, isFetchingToken: action.isFetching };
 
     case RECEIVE_SUCCESS_TOKEN:
       return {
@@ -30,8 +32,9 @@ export const tokenReducer = (state = initialState, action) => {
 
 export const questionsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_DATA:
-      return { ...state, isFetching: action.isFetching };
+    case FETCH_DATA_QUESTION:
+      console.log(action)
+      return { ...state, isFetchingQuestion: action.isFetching };
 
     case RECEIVE_SUCCESS_QUESTION:
       return {

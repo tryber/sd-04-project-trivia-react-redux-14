@@ -1,14 +1,20 @@
 import { getToken, getQuestions } from '../../services/api';
 
-export const FETCH_DATA = 'FETCH_DATA';
+export const FETCH_DATA_TOKEN = 'FETCH_DATA_TOKEN';
+export const FETCH_DATA_QUESTION = 'FETCH_DATA_QUESTION';
 export const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
 export const RECEIVE_SUCCESS_TOKEN = 'RECEIVE_SUCCESS_TOKEN';
 export const RECEIVE_SUCCESS_QUESTION = 'RECEIVE_SUCCESS_QUESTION';
 export const SEND_USER_DATA = 'SEND_USER_DATA';
 export const SEND_URL_GRAVATAR = 'SEND_URL_GRAVATAR';
 
-const fetchingData = (bool) => ({
-  type: FETCH_DATA,
+const fetchingDataToken = (bool) => ({
+  type: FETCH_DATA_TOKEN,
+  isFetching: bool,
+});
+
+const fetchingDataQuestion = (bool) => ({
+  type: FETCH_DATA_QUESTION,
   isFetching: bool,
 });
 
@@ -23,13 +29,13 @@ const receiveSuccessToken = (apiResponse) => ({
 });
 
 export const fetchToken = () => (dispatch) => {
-  dispatch(fetchingData(true));
+  dispatch(fetchingDataToken(true));
 
   return (
     getToken().then((data) => {
       if (data.response_code === 0) {
-        dispatch(fetchingData(false));
         dispatch(receiveSuccessToken(data));
+        dispatch(fetchingDataToken(false));
       } else {
         dispatch(fetchingDataError('Algo deu errado! Token inválido'));
       }
@@ -44,13 +50,13 @@ const receiveSuccessQuestion = (apiResponse) => ({
 });
 
 export const fetchQuestions = () => (dispatch) => {
-  dispatch(fetchingData(true));
+  dispatch(fetchingDataQuestion(true));
 
   return (
     getQuestions().then((data) => {
       if (data.response_code === 0) {
-        dispatch(fetchingData(false));
         dispatch(receiveSuccessQuestion(data));
+        dispatch(fetchingDataQuestion(false));
       } else {
         dispatch(fetchingDataError('Algo deu errado! Quest não existe'));
       }
