@@ -1,4 +1,11 @@
 .ScoreBoard {
   display: flex;
   flex-flow: column;
+  color: white;
+  align-items: center;
+}
+
+.ScoreBoard .score {
+  font-size: 40px;
+  font-weight: 800;
 }

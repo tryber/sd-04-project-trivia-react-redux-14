@@ -5,7 +5,7 @@ import ScoreBoard from '../../components/ScoreBoard';
 
 const mock = {
   numQuestions: 6,
-  assertions: 6,
+  assertions: 2,
   score: 7,
 };
 
