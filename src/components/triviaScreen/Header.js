@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { sendUrlGravatar } from '../../redux/actions/actionToken';
+import { sendUrlGravatar } from '../../redux/actions';
 import { getGravatar } from '../../services/api';
 
 class Header extends Component {
@@ -13,10 +13,10 @@ class Header extends Component {
   render() {
     const { urlGravatar, name, score } = this.props;
     return (
-      <header>
-        <img src={urlGravatar} alt='Foto Gravatar' data-testid='header-profile-picture' />
-        <h3 data-testid='header-player-name'>{name}</h3>
-        <span data-testid='header-score'>{score}</span>
+      <header data-testid="header-player-name">
+        <img src={urlGravatar} alt="Foto Gravatar" data-testid="header-profile-picture" />
+        <h3>{name}</h3>
+        <span data-testid="header-score">{score}</span>
       </header>
     );
   }

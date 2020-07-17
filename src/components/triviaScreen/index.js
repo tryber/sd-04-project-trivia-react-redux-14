@@ -11,41 +11,27 @@ class TriviaScreen extends Component {
     this.state = {
       userAnswer: null,
       currentIndex: 0,
-      options: [],
       score: 0,
-      question: '',
-      answer: '',
       isDisable: true,
       quizEnd: false,
-      category: '',
     };
   }
 
   componentDidMount() {
     const { fetchQuestionsProp } = this.props;
-    console.log("N")
     fetchQuestionsProp();
   }
-
-  // componentDidUpdate(prevProp, prevState) {
-  //   const { currentIndex } = this.state;
-  //   if (currentIndex !== prevState.currentIndex) {
-  //     this.loadQuiz();
-  //   }
-  // }
 
   finishHandler = () => this.setState({ quizEnd: true });
 
   nextQuestionHandler = (e) => {
     e.preventDefault();
-    const {
-      userAnswer, answer, score, currentIndex,
-    } = this.state;
+    const { currentIndex, score, userAnswer } = this.state;
     const { data } = this.props;
 
     if (currentIndex === data.length - 1) return this.finishHandler();
 
-    if (userAnswer === answer) {
+    if (userAnswer === data[currentIndex].correct_answer) {
       return this.setState({ score: score + 1 });
     }
 
@@ -62,17 +48,16 @@ class TriviaScreen extends Component {
     });
   };
 
-  // loadQuiz() {
-  //   const { currentIndex } = this.state;
-  //   const { data } = this.props;
-  //   console.log(data)
-  //   this.setState({
-  //     question: data[currentIndex].question,
-  //     options: data[currentIndex].incorrect_answers.concat(data[currentIndex].correct_answer),
-  //     answer: data[currentIndex].correct_answer,
-  //     category: data[currentIndex].category,
-  //   });
-  // }
+  optionsAnswers(data) {
+    const { currentIndex } = this.state;
+    const options = data[currentIndex].incorrect_answers.concat(data[currentIndex].correct_answer);
+    const optionsRand = options[Math.floor(Math.random() * options.length)];
+    return optionsRand.map((option) => (
+      <Button key={option.question} type="button" onClick={() => this.checkAnswer(option)}>
+        {option}
+      </Button>
+    ));
+  }
 
   render() {
     const {
@@ -81,18 +66,21 @@ class TriviaScreen extends Component {
 
     if (isFetchingToken || isFetchingQuestion) return <div>Loading...</div>;
     if (quizEnd) return <Redirect to="/feedback" />;
+    console.log("renderizando", data)
     return (
       <div>
         <Header />
         <div>
-          <span>
+          <h3 data-testid="question-category">
             {data[currentIndex].category}
-          </span>
-          <span>
-            Questão:
+          </h3>
+          <h3 data-testid="question-text">
             {data[currentIndex].question}
-          </span>
+          </h3>
           <span>{`Questão ${currentIndex + 1} de ${data.length}`}</span>
+        </div>
+        <div>
+          {this.optionsAnswers(data)}
         </div>
         <Button
           isDisable={isDisable}
