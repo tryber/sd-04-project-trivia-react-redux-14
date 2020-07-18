@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ScoreBoard from '../../components/ScoreBoard';
+import Button from '../../components/button';
 
 const mock = {
   numQuestions: 6,
@@ -24,6 +25,8 @@ class FeedbackScreen extends Component {
       <div>
         {this.renderMessage(5)}
         <ScoreBoard questions={mock.numQuestions} assertions={mock.assertions} score={mock.score} />
+        <Button isDisabled={false}>Menu Principal</Button>
+        <Button isDisabled={false}>Ranking</Button>
       </div>
     );
   }
