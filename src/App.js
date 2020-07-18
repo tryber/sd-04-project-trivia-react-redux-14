@@ -15,9 +15,9 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <div className='App'>
-            <header className='App-header'>
+            <div className='App-header'>
               <img src={logo} className='App-logo' alt='logo' />
-            </header>
+            </div>
             <Switch>
               <Route exact path='/' component={StartScreen} />
               <Route exact path='/settings' component={SettingsScreen} />

@@ -51,8 +51,9 @@ class TriviaScreen extends Component {
   optionsAnswers(data) {
     const { currentIndex } = this.state;
     const options = data[currentIndex].incorrect_answers.concat(data[currentIndex].correct_answer);
-    const optionsRand = options[Math.floor(Math.random() * options.length)];
-    return optionsRand.map((option) => (
+    // const optionsRand = options[Math.floor(Math.random() * options.length)];
+    console.log(options)
+    return options.map((option) => (
       <Button key={option.question} type="button" onClick={() => this.checkAnswer(option)}>
         {option}
       </Button>
@@ -64,9 +65,9 @@ class TriviaScreen extends Component {
       quizEnd, isDisable, currentIndex } = this.state;
     const { data, isFetchingToken, isFetchingQuestion } = this.props;
 
-    if (isFetchingToken || isFetchingQuestion) return <div>Loading...</div>;
+    if (isFetchingToken || isFetchingQuestion) return <Header />;
     if (quizEnd) return <Redirect to="/feedback" />;
-    console.log("renderizando", data)
+    console.log("renderizando", data);
     return (
       <div>
         <Header />

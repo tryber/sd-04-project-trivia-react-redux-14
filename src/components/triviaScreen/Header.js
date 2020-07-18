@@ -13,9 +13,9 @@ class Header extends Component {
   render() {
     const { urlGravatar, name, score } = this.props;
     return (
-      <header data-testid="header-player-name">
+      <header>
         <img src={urlGravatar} alt="Foto Gravatar" data-testid="header-profile-picture" />
-        <h3>{name}</h3>
+        <h3 data-testid="header-player-name">{name}</h3>
         <span data-testid="header-score">{score}</span>
       </header>
     );
