@@ -25,8 +25,8 @@ class FeedbackScreen extends Component {
       <div>
         {this.renderMessage(5)}
         <ScoreBoard questions={mock.numQuestions} assertions={mock.assertions} score={mock.score} />
-        <Button isDisabled={false}>Menu Principal</Button>
-        <Button isDisabled={false}>Ranking</Button>
+        <Button isDisabled={false} data-testid="btn-play-again">Jogar Novamente</Button>
+        <Button isDisabled={false} data-testid="btn-ranking">Ver Raking</Button>
       </div>
     );
   }
