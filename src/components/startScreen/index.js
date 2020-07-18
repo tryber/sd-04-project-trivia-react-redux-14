@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import Proptypes from 'prop-types';
 
-import '../../App.css';
 import { fetchToken, fetchQuestions, sendUserData } from '../../redux/actions';
+import '../../App.css';
+import Button from '../button';
 
 class StartScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { goPlay: false, };
+    this.state = { goPlay: false, isDisabled: true };
   }
+
   componentDidMount() {
     const { fetchTokenProp } = this.props;
     fetchTokenProp();
@@ -22,19 +25,32 @@ class StartScreen extends Component {
       assertions: 0,
       score: 0,
       gravatarEmail,
-    }
+    };
     sendUserDataProp(player);
   };
 
   handleInput = (type, event) => {
     const { value } = event.target;
-    const { sendUserDataProp } = this.props;
+    const { sendUserDataProp, name, gravatarEmail } = this.props;
 
+    if (name && gravatarEmail) {
+      this.setState({ isDisabled: false });
+    }
     if (type === 'email') {
       return sendUserDataProp({ gravatarEmail: value });
     }
     return sendUserDataProp({ name: value });
-  }
+  };
+
+  playTrivia = (e) => {
+    e.preventDefault();
+    const { name, gravatarEmail } = this.props;
+
+    this.handleUser(gravatarEmail, name);
+    this.setState({ goPlay: true });
+
+    return console.log('oops');
+  };
 
   renderFieldsetInputs = () => (
     <fieldset className="fieldset-inputs-start-screen">
@@ -59,46 +75,43 @@ class StartScreen extends Component {
     </fieldset>
   );
 
-  playTrivia = (e) => {
-    e.preventDefault();
-    const { name, gravatarEmail } = this.props;
-    if (name && gravatarEmail) {
-      this.handleUser(gravatarEmail, name);
-      this.setState({ goPlay: true })
-    }
-    return console.log("oops");
-  };
-
   renderFieldsetButtons = () => (
     <fieldset className="fieldset-buttons-start-screen">
       <Link to="/settings">
         <label htmlFor="btn-settings">
-          <button
+          <Button
             type="button"
             data-testid="btn-settings"
             className="btn-settings"
             id="btn-settings"
           >
             OPÇÕES...
-          </button>
+          </Button>
         </label>
       </Link>
-        <label htmlFor="btn-play">
-          <button type="submit" data-testid="btn-play" className="btn-play" id="btn-play" onClick={(e) => this.playTrivia(e)}>
-            JOGAR!
-          </button>
-        </label>
+      <label htmlFor="btn-play">
+        <Button
+          isDisabled={this.state.isDisabled}
+          type="submit"
+          data-testid="btn-play"
+          className="btn-play"
+          id="btn-play"
+          onClick={(e) => this.playTrivia(e)}
+        >
+          JOGAR!
+        </Button>
+      </label>
     </fieldset>
   );
 
   render() {
     const { goPlay } = this.state;
     if (goPlay) {
-      return <Redirect to="/trivia" />
+      return <Redirect to="/trivia" />;
     }
     return (
       <div className="trivia-screen">
-        <form className="form-start-screen" onSubmit={this.handlePlayTrivia}>
+        <form className="form-start-screen">
           {this.renderFieldsetInputs()}
           {this.renderFieldsetButtons()}
         </form>
@@ -118,5 +131,12 @@ const mapStateToProps = (state) => ({
   gravatarEmail: state.userDataReducer.player.gravatarEmail,
   name: state.userDataReducer.player.name,
 });
+
+StartScreen.propTypes = {
+  fetchTokenProp: Proptypes.func.isRequired,
+  sendUserDataProp: Proptypes.func.isRequired,
+  gravatarEmail: Proptypes.string.isRequired,
+  name: Proptypes.string.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartScreen);
