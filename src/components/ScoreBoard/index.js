@@ -23,10 +23,8 @@ class ScoreBoard extends Component {
         <section>
           <h2>Acertos</h2>
           <div className="progress-circle">
-            <div>
-              <span data-testid="feedback-total-question">{assertions}</span>
-              {`/${questions}`}
-            </div>
+            <div hidden>{assertions}</div>
+            <span>{`${assertions}/${questions}`}</span>
             <div className="left-half-clipper">
               <div className="first50-bar" />
               <div className="value-bar" />
@@ -35,9 +33,7 @@ class ScoreBoard extends Component {
         </section>
         <section>
           <h2>Pontuação</h2>
-          <span data-testid="feedback-total-score" className="score">
-            {score}
-          </span>
+          <span data-testid="feedback-total-score" className="score">{score}</span>
         </section>
       </div>
     );
