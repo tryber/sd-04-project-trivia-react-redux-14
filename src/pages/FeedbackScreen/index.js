@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './FeedbackScreen.css';
 
 import ScoreBoard from '../../components/ScoreBoard';
 import Button from '../../components/button';
 
 const mock = {
   numQuestions: 6,
-  assertions: 2,
+  assertions: 4,
   score: 7,
 };
 
@@ -22,11 +23,15 @@ class FeedbackScreen extends Component {
 
   render() {
     return (
-      <div>
+      <div className="FeedbackScreen">
         {this.renderMessage(5)}
         <ScoreBoard questions={mock.numQuestions} assertions={mock.assertions} score={mock.score} />
-        <Button isDisabled={false} data-testid="btn-play-again">Jogar Novamente</Button>
-        <Button isDisabled={false} data-testid="btn-ranking">Ver Raking</Button>
+        <Button isDisabled={false} data-testid="btn-play-again">
+          Jogar Novamente
+        </Button>
+        <Button isDisabled={false} data-testid="btn-ranking">
+          Ver Raking
+        </Button>
       </div>
     );
   }
