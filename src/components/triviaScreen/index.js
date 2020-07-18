@@ -18,6 +18,7 @@ class TriviaScreen extends Component {
   }
 
   componentDidMount() {
+    //  teste push
     const { fetchQuestionsProp } = this.props;
     fetchQuestionsProp();
   }
