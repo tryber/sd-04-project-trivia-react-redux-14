@@ -32,7 +32,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sendUrlGravatarProps: (url) => dispatch(sendUrlGravatar(url)),
+  sendUrlGravatarProp: (url) => dispatch(sendUrlGravatar(url)),
 });
 
 Header.propTypes = {
