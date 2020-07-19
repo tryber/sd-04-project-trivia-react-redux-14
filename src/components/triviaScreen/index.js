@@ -110,7 +110,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 TriviaScreen.propTypes = {
   fetchQuestionsProp: Proptypes.func.isRequired,
-  data: Proptypes.object.isRequired,// Proptypes.object is forbidden 
+  data: Proptypes.objectOf(Proptypes.string).isRequired, // Proptypes.object is forbidden -> teste
   isFetchingToken: Proptypes.func.isRequired,
   isFetchingQuestion: Proptypes.func.isRequired,
 };
