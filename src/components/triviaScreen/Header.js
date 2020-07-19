@@ -36,14 +36,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Header.propTypes = {
-  fetchTokenProp: Proptypes.func.isRequired,
-  sendUserDataProp: Proptypes.func.isRequired,
   sendUrlGravatarProp: Proptypes.func.isRequired,
-  gravatarEmail: Proptypes.string.isRequired,
   urlGravatar: Proptypes.string.isRequired,
   name: Proptypes.string.isRequired,
   email: Proptypes.string.isRequired,
-  score: Proptypes.number,
+  score: Proptypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

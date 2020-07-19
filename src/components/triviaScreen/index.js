@@ -110,10 +110,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 TriviaScreen.propTypes = {
   fetchQuestionsProp: Proptypes.func.isRequired,
-  data: Proptypes.object.isRequired,
+  data: Proptypes.object.isRequired,// Proptypes.object is forbidden 
   isFetchingToken: Proptypes.func.isRequired,
   isFetchingQuestion: Proptypes.func.isRequired,
-
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TriviaScreen);
