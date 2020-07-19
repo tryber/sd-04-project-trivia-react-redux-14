@@ -46,11 +46,11 @@ class StartScreen extends Component {
 
   playTrivia = (e) => {
     e.preventDefault();
-    const { name, gravatarEmail } = this.props;
+    const { name, gravatarEmail, fetchTokenProp } = this.props;
 
     this.handleUser(gravatarEmail, name);
     this.setState({ goPlay: true });
-
+    fetchTokenProp();
     return console.log('oops');
   };
 
