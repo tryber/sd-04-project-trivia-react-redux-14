@@ -1,7 +1,7 @@
 import { FETCH_DATA_QUESTION, FETCH_ERROR_QUESTION, RECEIVE_SUCCESS_QUESTION } from '../actions/actionQuest';
 
 const initialState = {
-  isFetchingQuestion: false,
+  isFetchingQuestion: true,
   error: '',
   questions: [],
 };

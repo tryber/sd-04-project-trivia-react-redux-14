@@ -1,17 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import Proptypes from 'prop-types';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+import Proptypes from "prop-types";
 
-import { fetchToken } from '../../redux/actions/actionToken';
-import { sendUserData } from '../../redux/actions';
-import '../../App.css';
-import Button from '../button';
+import { fetchToken } from "../../redux/actions/actionToken";
+import { sendUserData } from "../../redux/actions";
+import "../../App.css";
+import Button from "../button";
 
 class StartScreen extends Component {
   constructor(props) {
     super(props);
     this.state = { goPlay: false, isDisabled: true };
+  }
+
+  componentDidMount() {
+    const { fetchTokenProp } = this.props;
+
+    fetchTokenProp();
   }
 
   handleUser = (gravatarEmail, name) => {
@@ -32,7 +38,7 @@ class StartScreen extends Component {
     if (name && gravatarEmail) {
       this.setState({ isDisabled: false });
     }
-    if (type === 'email') {
+    if (type === "email") {
       return sendUserDataProp({ gravatarEmail: value });
     }
     return sendUserDataProp({ name: value });
@@ -40,12 +46,12 @@ class StartScreen extends Component {
 
   playTrivia = (e) => {
     e.preventDefault();
-    const { name, gravatarEmail, fetchTokenProp } = this.props;
+    const { name, gravatarEmail } = this.props;
 
     this.handleUser(gravatarEmail, name);
     this.setState({ goPlay: true });
-    fetchTokenProp();
-    return console.log('oops');
+
+    return console.log("oops");
   };
 
   renderFieldsetInputs = () => (
@@ -56,7 +62,7 @@ class StartScreen extends Component {
         data-testid="input-gravatar-email"
         id="input-gravatar-email"
         placeholder="<name@email.com>"
-        onChange={(e) => this.handleInput('email', e)}
+        onChange={(e) => this.handleInput("email", e)}
         required
       />
       <label htmlFor="input-player-name">Nome do Jogador:</label>
@@ -65,7 +71,7 @@ class StartScreen extends Component {
         data-testid="input-player-name"
         id="input-player-name"
         placeholder="<player name>"
-        onChange={(e) => this.handleInput('name', e)}
+        onChange={(e) => this.handleInput("name", e)}
         required
       />
     </fieldset>
