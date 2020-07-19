@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Proptypes from 'prop-types';
+
 import { sendUrlGravatar } from '../../redux/actions';
 import { getGravatar } from '../../services/api';
 
 class Header extends Component {
   componentDidMount() {
-    const { sendUrlGravatarProps, email } = this.props;
+    const { sendUrlGravatarProp, email } = this.props;
     const urlEmail = getGravatar(email);
-    sendUrlGravatarProps(urlEmail);
+    sendUrlGravatarProp(urlEmail);
   }
 
   render() {
@@ -32,5 +34,16 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   sendUrlGravatarProps: (url) => dispatch(sendUrlGravatar(url)),
 });
+
+Header.propTypes = {
+  fetchTokenProp: Proptypes.func.isRequired,
+  sendUserDataProp: Proptypes.func.isRequired,
+  sendUrlGravatarProp: Proptypes.func.isRequired,
+  gravatarEmail: Proptypes.string.isRequired,
+  urlGravatar: Proptypes.string.isRequired,
+  name: Proptypes.string.isRequired,
+  email: Proptypes.string.isRequired,
+  score: Proptypes.number,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
