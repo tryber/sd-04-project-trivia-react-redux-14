@@ -108,7 +108,7 @@ class TriviaScreen extends Component {
           isDisable={isDisable}
           type="button"
           data-testid="btn-next"
-          onClick={e => this.nextQuestionHandler(e)}
+          onClick={(e) => this.nextQuestionHandler(e)}
         >
           Próxima
         </Button>
