@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Proptypes from 'prop-types';
+
 import { fetchQuestions } from '../../redux/actions/actionQuest';
 import Header from './Header';
 import Button from '../button';
@@ -53,7 +55,7 @@ class TriviaScreen extends Component {
     const { currentIndex } = this.state;
     const options = data[currentIndex].incorrect_answers.concat(data[currentIndex].correct_answer);
     // const optionsRand = options[Math.floor(Math.random() * options.length)];
-    console.log(options)
+    console.log(options);
     return options.map((option) => (
       <Button key={option.question} type="button" onClick={() => this.checkAnswer(option)}>
         {option}
@@ -62,13 +64,12 @@ class TriviaScreen extends Component {
   }
 
   render() {
-    const {
-      quizEnd, isDisable, currentIndex } = this.state;
+    const { quizEnd, isDisable, currentIndex } = this.state;
     const { data, isFetchingToken, isFetchingQuestion } = this.props;
 
     if (isFetchingToken || isFetchingQuestion) return <Header />;
     if (quizEnd) return <Redirect to="/feedback" />;
-    console.log("renderizando", data);
+    console.log('renderizando', data);
     return (
       <div>
         <Header />
@@ -106,5 +107,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchQuestionsProp: () => dispatch(fetchQuestions()),
 });
+
+TriviaScreen.propTypes = {
+  fetchQuestionsProp: Proptypes.func.isRequired,
+  data: Proptypes.objectOf(Proptypes.string).isRequired, // Proptypes.object is forbidden -> teste
+  isFetchingToken: Proptypes.func.isRequired,
+  isFetchingQuestion: Proptypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TriviaScreen);
