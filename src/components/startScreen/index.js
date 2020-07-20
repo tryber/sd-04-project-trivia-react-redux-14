@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
-import { fetchToken, fetchQuestions, sendUserData } from '../../redux/actions';
+import { fetchToken } from '../../redux/actions/actionToken';
+import { sendUserData } from '../../redux/actions';
 import '../../App.css';
 import Button from '../button';
 
@@ -15,6 +16,7 @@ class StartScreen extends Component {
 
   componentDidMount() {
     const { fetchTokenProp } = this.props;
+
     fetchTokenProp();
   }
 
@@ -44,11 +46,11 @@ class StartScreen extends Component {
 
   playTrivia = (e) => {
     e.preventDefault();
-    const { name, gravatarEmail } = this.props;
+    const { name, gravatarEmail, fetchTokenProp } = this.props;
 
     this.handleUser(gravatarEmail, name);
     this.setState({ goPlay: true });
-
+    fetchTokenProp();
     return console.log('oops');
   };
 
@@ -122,7 +124,6 @@ class StartScreen extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchTokenProp: () => dispatch(fetchToken()),
-  fetchQuestionsProp: () => dispatch(fetchQuestions()),
   sendUserDataProp: (userData) => dispatch(sendUserData(userData)),
 });
 
