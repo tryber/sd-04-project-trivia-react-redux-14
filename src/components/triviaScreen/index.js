@@ -28,7 +28,7 @@ class TriviaScreen extends Component {
 
   finishHandler = () => this.setState({ quizEnd: true });
 
-  nextQuestionHandler = e => {
+  nextQuestionHandler = (e) => {
     e.preventDefault();
     const { currentIndex, score, userAnswer } = this.state;
     const { data } = this.props;
@@ -45,7 +45,7 @@ class TriviaScreen extends Component {
     });
   };
 
-  checkAnswer = choice => {
+  checkAnswer = (choice) => {
     this.setState({
       userAnswer: choice,
       isDisable: false,
@@ -116,13 +116,13 @@ class TriviaScreen extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.questionsReducer.questions,
   isFetchingToken: state.tokenReducer.isFetchingToken,
   isFetchingQuestion: state.questionsReducer.isFetchingQuestion,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   fetchQuestionsProp: () => dispatch(fetchQuestions()),
 });
 
