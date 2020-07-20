@@ -15,13 +15,13 @@ class TriviaScreen extends Component {
       userAnswer: null,
       currentIndex: 0,
       score: 0,
-      isDisable: true,
+      isDisabled: true,
       quizEnd: false,
+      shuffledAnswers: undefined,
     };
   }
 
   componentDidMount() {
-    //  teste push
     const { fetchQuestionsProp } = this.props;
     fetchQuestionsProp();
   }
@@ -36,60 +36,94 @@ class TriviaScreen extends Component {
     if (currentIndex === data.length - 1) return this.finishHandler();
 
     if (userAnswer === data[currentIndex].correct_answer) {
-      return this.setState({ score: score + 1 });
+      return this.setState({
+        score: score + 1,
+        userAnswer: null,
+        shuffledAnswers: undefined,
+        currentIndex: currentIndex + 1,
+        isDisabled: true,
+      });
     }
 
     return this.setState({
       userAnswer: null,
+      shuffledAnswers: undefined,
       currentIndex: currentIndex + 1,
+      isDisabled: true,
     });
   };
 
   checkAnswer = (choice) => {
+    document.querySelector('.correct-answer').classList.add('green-border');
+    document.querySelectorAll('.wrong-answer').forEach((answer) => answer.classList.add('red-border'));
+    document.querySelectorAll('.answer').forEach((answer) => {
+      const button = answer;
+      button.disabled = true;
+    });
+
     this.setState({
       userAnswer: choice,
-      isDisable: false,
+      isDisabled: false,
     });
-    // verifica anwer === correct || wrong para alterar a cor
-    // const alloptions = document.querySelectorAll('.answer');
-    // if (answer === 'correct') alloptions.className='green-border';
   };
 
-  optionsAnswers(data) {
-    const { currentIndex } = this.state;
+  shuffle = (array) => {
+    const originalArray = array;
+    let currentIndex = array.length;
+    let temporaryValue = '';
+    let randomIndex = 0;
+
+    //  While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+      //  Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      //  And swap it with the current element.
+      //  Valor temporário recebe valor do index atual do array
+      temporaryValue = originalArray[currentIndex];
+      //  Valor atual recebe valor aleatório da array
+      originalArray[currentIndex] = originalArray[randomIndex];
+      // Valor aleatorio recebe valor atual
+      originalArray[randomIndex] = temporaryValue;
+    }
+
+    this.setState({
+      shuffledAnswers: originalArray,
+    });
+
+    return originalArray;
+  }
+
+  optionsAnswers = (data) => {
+    const { currentIndex, shuffledAnswers } = this.state;
     const correctAnswer = data[currentIndex].correct_answer;
     const incorrectAnswers = data[currentIndex].incorrect_answers;
-    // const options = data[currentIndex].incorrect_answers
-    //  .concat(data[currentIndex].correct_answer);
-    // const optionsRand = options[Math.floor(Math.random() * options.length)];
-    // console.log(options);
+    const answers = [correctAnswer, ...incorrectAnswers];
+
+    const arrayNew = (shuffledAnswers) || this.shuffle(answers);
+
+    const setButton = arrayNew.map((answer) => (
+      <Button
+        key={answer}
+        type="button"
+        onClick={() => this.checkAnswer(answer)}
+        data-testid={answer === correctAnswer ? 'correct-answer' : 'wrong-answer'}
+        className={`answer ${answer === correctAnswer ? 'correct-answer' : 'wrong-answer'}`}
+      >
+        {answer}
+      </Button>
+    ));
+
     return (
       <div className="answers">
-        {incorrectAnswers.map((option) => (
-          <Button
-            key={option.question}
-            type="button"
-            onClick={() => this.checkAnswer(option)}
-            data-testid="wrong-answer"
-            className="answer"
-          >
-            {option}
-          </Button>
-        ))}
-        <Button
-          type="button"
-          onClick={() => this.checkAnswer(correctAnswer)}
-          data-testid="correct-answer"
-          className="answer"
-        >
-          {correctAnswer}
-        </Button>
+        {setButton}
       </div>
     );
   }
 
   render() {
-    const { quizEnd, isDisable, currentIndex } = this.state;
+    const { quizEnd, isDisabled, currentIndex } = this.state;
     const { data, isFetchingToken, isFetchingQuestion } = this.props;
 
     if (isFetchingToken || isFetchingQuestion) return <Header />;
@@ -104,14 +138,16 @@ class TriviaScreen extends Component {
           <span>{`Questão ${currentIndex + 1} de ${data.length}`}</span>
         </div>
         <div>{this.optionsAnswers(data)}</div>
-        <Button
-          isDisable={isDisable}
-          type="button"
-          data-testid="btn-next"
-          onClick={(e) => this.nextQuestionHandler(e)}
-        >
-          Próxima
-        </Button>
+        {!isDisabled ? (
+          <Button
+            isDisabled={isDisabled}
+            type="button"
+            data-testid="btn-next"
+            onClick={(e) => this.nextQuestionHandler(e)}
+          >
+            Próxima
+          </Button>
+        ) : null }
       </div>
     );
   }
