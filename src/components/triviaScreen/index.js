@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Proptypes from 'prop-types';
-
+import { setScore } from '../../redux/actions';
 import { fetchQuestions } from '../../redux/actions/actionQuest';
 import '../../App.css';
 import Header from './Header';
@@ -14,43 +14,57 @@ class TriviaScreen extends Component {
     this.state = {
       userAnswer: null,
       currentIndex: 0,
-      score: 0,
       isDisabled: true,
       quizEnd: false,
       shuffledAnswers: undefined,
+      timer: 30,
     };
   }
 
   componentDidMount() {
     const { fetchQuestionsProp } = this.props;
     fetchQuestionsProp();
+    this.handleTimer();
+  }
+
+  handleTimer = () => {
+    const time = setInterval(() => {
+      const { timer } = this.state;
+      this.setState({
+        timer: timer - 1,
+      }, () => {
+        if (timer === 1) {
+          console.log(timer);
+          clearInterval(time);
+          this.setState({ isDisabled: false, timer: 30 });
+        }
+      });
+    }, 1000);
   }
 
   finishHandler = () => this.setState({ quizEnd: true });
 
   nextQuestionHandler = (e) => {
     e.preventDefault();
-    const { currentIndex, score, userAnswer } = this.state;
+    const { currentIndex, userAnswer } = this.state;
     const { data } = this.props;
 
     if (currentIndex === data.length - 1) return this.finishHandler();
 
     if (userAnswer === data[currentIndex].correct_answer) {
       return this.setState({
-        score: score + 1,
         userAnswer: null,
         shuffledAnswers: undefined,
         currentIndex: currentIndex + 1,
         isDisabled: true,
-      });
+      }, () => this.handleTimer());
     }
-
     return this.setState({
       userAnswer: null,
       shuffledAnswers: undefined,
       currentIndex: currentIndex + 1,
       isDisabled: true,
-    });
+    }, () => this.handleTimer());
   };
 
   checkAnswer = (choice) => {
@@ -78,7 +92,6 @@ class TriviaScreen extends Component {
       //  Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
-
       //  And swap it with the current element.
       //  Valor temporário recebe valor do index atual do array
       temporaryValue = originalArray[currentIndex];
@@ -161,13 +174,15 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchQuestionsProp: () => dispatch(fetchQuestions()),
+  setScoreProp: (score) => dispatch(setScore(score)),
 });
 
 TriviaScreen.propTypes = {
   fetchQuestionsProp: Proptypes.func.isRequired,
-  data: Proptypes.objectOf(Proptypes.string).isRequired, // Proptypes.object is forbidden -> teste
+  data: Proptypes.objectOf(Proptypes.string).isRequired,
   isFetchingToken: Proptypes.func.isRequired,
   isFetchingQuestion: Proptypes.func.isRequired,
+  // setScoreProp: Proptypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TriviaScreen);
