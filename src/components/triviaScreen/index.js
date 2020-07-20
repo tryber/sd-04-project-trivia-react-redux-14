@@ -45,7 +45,7 @@ class TriviaScreen extends Component {
     });
   };
 
-  checkAnswer = (choice, answer) => {
+  checkAnswer = (choice) => {
     this.setState({
       userAnswer: choice,
       isDisable: false,
@@ -59,18 +59,18 @@ class TriviaScreen extends Component {
     const { currentIndex } = this.state;
     const correctAnswer = data[currentIndex].correct_answer;
     const incorrectAnswers = data[currentIndex].incorrect_answers;
-    const options = data[currentIndex].incorrect_answers.concat(data[currentIndex].correct_answer);
+    // const options = data[currentIndex].incorrect_answers.concat(data[currentIndex].correct_answer);
     // const optionsRand = options[Math.floor(Math.random() * options.length)];
     // console.log(options);
     return (
-    <div className="answers">
-    {incorrectAnswers.map((option) => (
-      <Button key={option.question} type="button" onClick={() => this.checkAnswer(option)} data-testid="wrong-answer" className="answer">
-        {option}
-      </Button>
-    ))}
-    <Button type="button" onClick={() => this.checkAnswer(correctAnswer)} data-testid="correct-answer" className="answer">{correctAnswer}</Button>
-    </div>
+      <div className="answers">
+        {incorrectAnswers.map((option) => (
+          <Button key={option.question} type="button" onClick={() => this.checkAnswer(option)} data-testid="wrong-answer" className="answer">
+            {option}
+          </Button>
+        ))}
+        <Button type="button" onClick={() => this.checkAnswer(correctAnswer)} data-testid="correct-answer" className="answer">{correctAnswer}</Button>
+      </div>
     );
   }
 
