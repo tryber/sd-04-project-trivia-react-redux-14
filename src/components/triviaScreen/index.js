@@ -59,12 +59,13 @@ class TriviaScreen extends Component {
     const { currentIndex } = this.state;
     const correctAnswer = data[currentIndex].correct_answer;
     const incorrectAnswers = data[currentIndex].incorrect_answers;
-    // const options = data[currentIndex].incorrect_answers.concat(data[currentIndex].correct_answer);
+    // const options = data[currentIndex].incorrect_answers
+    //  .concat(data[currentIndex].correct_answer);
     // const optionsRand = options[Math.floor(Math.random() * options.length)];
     // console.log(options);
     return (
       <div className="answers">
-        {incorrectAnswers.map(option => (
+        {incorrectAnswers.map((option) => (
           <Button
             key={option.question}
             type="button"
