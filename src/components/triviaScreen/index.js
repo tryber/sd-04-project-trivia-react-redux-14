@@ -28,7 +28,7 @@ class TriviaScreen extends Component {
 
   finishHandler = () => this.setState({ quizEnd: true });
 
-  nextQuestionHandler = (e) => {
+  nextQuestionHandler = e => {
     e.preventDefault();
     const { currentIndex, score, userAnswer } = this.state;
     const { data } = this.props;
@@ -45,7 +45,7 @@ class TriviaScreen extends Component {
     });
   };
 
-  checkAnswer = (choice) => {
+  checkAnswer = choice => {
     this.setState({
       userAnswer: choice,
       isDisable: false,
@@ -64,12 +64,25 @@ class TriviaScreen extends Component {
     // console.log(options);
     return (
       <div className="answers">
-        {incorrectAnswers.map((option) => (
-          <Button key={option.question} type="button" onClick={() => this.checkAnswer(option)} data-testid="wrong-answer" className="answer">
+        {incorrectAnswers.map(option => (
+          <Button
+            key={option.question}
+            type="button"
+            onClick={() => this.checkAnswer(option)}
+            data-testid="wrong-answer"
+            className="answer"
+          >
             {option}
           </Button>
         ))}
-        <Button type="button" onClick={() => this.checkAnswer(correctAnswer)} data-testid="correct-answer" className="answer">{correctAnswer}</Button>
+        <Button
+          type="button"
+          onClick={() => this.checkAnswer(correctAnswer)}
+          data-testid="correct-answer"
+          className="answer"
+        >
+          {correctAnswer}
+        </Button>
       </div>
     );
   }
@@ -85,22 +98,16 @@ class TriviaScreen extends Component {
       <div>
         <Header />
         <div>
-          <h3 data-testid="question-category">
-            {data[currentIndex].category}
-          </h3>
-          <h3 data-testid="question-text">
-            {data[currentIndex].question}
-          </h3>
+          <h3 data-testid="question-category">{data[currentIndex].category}</h3>
+          <h3 data-testid="question-text">{data[currentIndex].question}</h3>
           <span>{`Questão ${currentIndex + 1} de ${data.length}`}</span>
         </div>
-        <div>
-          {this.optionsAnswers(data)}
-        </div>
+        <div>{this.optionsAnswers(data)}</div>
         <Button
           isDisable={isDisable}
           type="button"
           data-testid="btn-next"
-          onClick={(e) => this.nextQuestionHandler(e)}
+          onClick={e => this.nextQuestionHandler(e)}
         >
           Próxima
         </Button>
@@ -109,13 +116,13 @@ class TriviaScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   data: state.questionsReducer.questions,
   isFetchingToken: state.tokenReducer.isFetchingToken,
   isFetchingQuestion: state.questionsReducer.isFetchingQuestion,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   fetchQuestionsProp: () => dispatch(fetchQuestions()),
 });
 
