@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
 import { fetchQuestions } from '../../redux/actions/actionQuest';
+import '../../App.css';
 import Header from './Header';
 import Button from '../button';
 
@@ -44,23 +45,33 @@ class TriviaScreen extends Component {
     });
   };
 
-  checkAnswer = (choice) => {
+  checkAnswer = (choice, answer) => {
     this.setState({
       userAnswer: choice,
       isDisable: false,
     });
+    // verifica anwer === correct || wrong para alterar a cor
+    // const alloptions = document.querySelectorAll('.answer');
+    // if (answer === 'correct') alloptions.className='green-border';
   };
 
   optionsAnswers(data) {
     const { currentIndex } = this.state;
+    const correctAnswer = data[currentIndex].correct_answer;
+    const incorrectAnswers = data[currentIndex].incorrect_answers;
     const options = data[currentIndex].incorrect_answers.concat(data[currentIndex].correct_answer);
     // const optionsRand = options[Math.floor(Math.random() * options.length)];
-    console.log(options);
-    return options.map((option) => (
-      <Button key={option.question} type="button" onClick={() => this.checkAnswer(option)}>
+    // console.log(options);
+    return (
+    <div className="answers">
+    {incorrectAnswers.map((option) => (
+      <Button key={option.question} type="button" onClick={() => this.checkAnswer(option)} data-testid="wrong-answer" className="answer">
         {option}
       </Button>
-    ));
+    ))}
+    <Button type="button" onClick={() => this.checkAnswer(correctAnswer)} data-testid="correct-answer" className="answer">{correctAnswer}</Button>
+    </div>
+    );
   }
 
   render() {
