@@ -7,7 +7,7 @@ import './FeedbackScreen.css';
 import Medal from '../../images/medal.svg';
 import ScoreBoard from '../../components/ScoreBoard';
 import Button from '../../components/button';
-import Header from '../../components/header/Header';
+import Header from '../../components/header';
 
 // const mock = {
 //   numQuestions: 5,

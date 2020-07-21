@@ -7,7 +7,7 @@ import { fetchQuestions } from '../../redux/actions/actionQuest';
 import { saveToLocalStorage } from '../../services/localStorage';
 import { setScore } from '../../redux/actions';
 import '../../App.css';
-import Header from '../../components/header/Header';
+import Header from '../../components/header';
 import Button from '../../components/button';
 
 class TriviaScreen extends Component {
