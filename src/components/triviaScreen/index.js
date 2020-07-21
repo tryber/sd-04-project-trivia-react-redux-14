@@ -21,13 +21,13 @@ class TriviaScreen extends Component {
     };
   }
 
-  setIntervalId = '';
-
   componentDidMount() {
     const { fetchQuestionsProp } = this.props;
     fetchQuestionsProp();
     this.handleTimer();
   }
+
+  setIntervalId = '';
 
   handleTimer = () => {
     this.setIntervalId = setInterval(() => {
@@ -162,9 +162,7 @@ class TriviaScreen extends Component {
   }
 
   render() {
-    const {
-      quizEnd, isDisabled, currentIndex, timer,
-    } = this.state;
+    const { quizEnd, isDisabled, currentIndex, timer } = this.state;
     const { data, isFetchingToken, isFetchingQuestion } = this.props;
 
     if (isFetchingToken || isFetchingQuestion) return <Header />;
@@ -176,20 +174,12 @@ class TriviaScreen extends Component {
         <div>
           <h3 data-testid="question-category">{data[currentIndex].category}</h3>
           <h3 data-testid="question-text">{data[currentIndex].question}</h3>
-          <div>
-            Timer:
-            {' '}
-            {timer}
-          </div>
-          <p>
-            Dificuldade:
-            {' '}
-            {data[currentIndex].difficulty}
-          </p>
+          <span>{`Timer: ${timer}`}</span>
+          <span>{`Dificuldade: ${data[currentIndex].difficulty}`}</span>
           <span>{`Questão ${currentIndex + 1} de ${data.length}`}</span>
         </div>
         <div>{this.optionsAnswers(data)}</div>
-        {!isDisabled ? (
+        {!isDisabled && (
           <Button
             isDisabled={isDisabled}
             type="button"
@@ -198,7 +188,7 @@ class TriviaScreen extends Component {
           >
             Próxima
           </Button>
-        ) : null }
+        )}
       </div>
     );
   }
