@@ -46,7 +46,7 @@ class TriviaScreen extends Component {
               button.disabled = true;
             });
           }
-        }
+        },
       );
     }, 1000);
   };
@@ -67,7 +67,7 @@ class TriviaScreen extends Component {
         isDisabled: true,
         timer: 30,
       },
-      () => this.handleTimer()
+      () => this.handleTimer(),
     );
   };
 
@@ -82,7 +82,7 @@ class TriviaScreen extends Component {
     };
 
     const userScore = {
-      score: score + (10 + time * difficulties[difficulty]),
+      score: score + (10 + (time * difficulties[difficulty])),
       assertions: assertions + 1,
     };
 

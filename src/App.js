@@ -7,9 +7,9 @@ import './App.css';
 import store from './redux/store';
 import StartScreen from './components/startScreen';
 import SettingsScreen from './components/settingsScreen';
-import FeedbackScreen from './pages/FeedbackScreen';
 import TriviaScreen from './components/triviaScreen';
-import RankingScreen from './pages/RankingScreen'
+import FeedbackScreen from './pages/FeedbackScreen';
+import RankingScreen from './pages/RankingScreen';
 import NotFound from './components/notFound';
 
 class App extends Component {
