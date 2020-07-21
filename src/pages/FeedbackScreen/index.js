@@ -28,6 +28,10 @@ class FeedbackScreen extends Component {
     };
   }
 
+  handleNewGame = () => {
+    this.setState({ playAgain: true });
+  };
+
   renderMessage = (score) => (
     <div>
       <div className="ranking-status">
@@ -37,10 +41,6 @@ class FeedbackScreen extends Component {
       <h2 data-testid="feedback-text">{score > 3 ? messages.goodScore : messages.badScore}</h2>
     </div>
   );
-
-  handleNewGame = () => {
-    this.setState({ playAgain: true });
-  };
 
   render() {
     const { playAgain } = this.state;
