@@ -1,20 +1,21 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import "./FeedbackScreen.css";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import './FeedbackScreen.css';
+import Medal from '../../images/medal.svg';
 
-import ScoreBoard from "../../components/ScoreBoard";
-import Button from "../../components/button";
+import ScoreBoard from '../../components/ScoreBoard';
+import Button from '../../components/button';
 
 const mock = {
   numQuestions: 6,
   assertions: 4,
-  score: 7,
+  score: 700,
 };
 
 const messages = {
-  goodScore: "Mandou bem!",
-  badScore: "Podia ser melhor...",
+  goodScore: 'Mandou bem!',
+  badScore: 'Podia ser melhor...',
 };
 
 class FeedbackScreen extends Component {
@@ -27,9 +28,13 @@ class FeedbackScreen extends Component {
   }
 
   renderMessage = (score) => (
-    <p data-testid="feedback-text">
-      {score > 3 ? messages.goodScore : messages.badScore}
-    </p>
+    <>
+      <div className="ranking-status">
+        <img src={Medal} alt="In rank medal" />
+        <h2>Você esta no Ranking!</h2>
+      </div>
+      <h2 data-testid="feedback-text">{score > 3 ? messages.goodScore : messages.badScore}</h2>
+    </>
   );
 
   handleNewGame = () => {
@@ -44,12 +49,12 @@ class FeedbackScreen extends Component {
     return (
       <div className="FeedbackScreen">
         {this.renderMessage(5)}
-        <ScoreBoard
-          questions={mock.numQuestions}
-          assertions={mock.assertions}
-          score={mock.score}
-        />
-        <Button isDisabled={false} data-testid="btn-play-again" onClick={() => this.handleNewGame()}>
+        <ScoreBoard questions={mock.numQuestions} assertions={mock.assertions} score={mock.score} />
+        <Button
+          isDisabled={false}
+          data-testid="btn-play-again"
+          onClick={() => this.handleNewGame()}
+        >
           Jogar Novamente
         </Button>
         <Button isDisabled={false} data-testid="btn-ranking">

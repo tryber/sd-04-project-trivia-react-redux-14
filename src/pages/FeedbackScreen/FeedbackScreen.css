@@ -3,4 +3,16 @@
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  color: white;
+}
+
+.FeedbackScreen .ranking-status {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.FeedbackScreen .ranking-status > img {
+  width: 15vh;
 }
