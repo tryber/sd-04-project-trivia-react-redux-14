@@ -226,6 +226,7 @@ TriviaScreen.propTypes = {
   setUserScore: Proptypes.func.isRequired,
   score: Proptypes.number.isRequired,
   assertions: Proptypes.number.isRequired,
+  player: Proptypes.objectOf(Proptypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TriviaScreen);
