@@ -1,4 +1,4 @@
-import { SEND_USER_DATA, SEND_URL_GRAVATAR } from '../actions';
+import { SEND_USER_DATA, SEND_URL_GRAVATAR, SET_SCORE } from '../actions';
 
 const initialState = {
   player: {},
@@ -13,6 +13,14 @@ const userDataReducer = (state = initialState, action) => {
         player: {
           ...state.player,
           ...action.userData,
+        },
+      };
+    case SET_SCORE:
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          ...action.userScore,
         },
       };
     case SEND_URL_GRAVATAR:
