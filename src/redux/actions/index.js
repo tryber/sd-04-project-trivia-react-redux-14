@@ -12,7 +12,7 @@ export const sendUrlGravatar = (url) => ({
   url,
 });
 
-export const setScore = (score) => ({
+export const setScore = (userScore) => ({
   type: SET_SCORE,
-  score,
+  userScore,
 });

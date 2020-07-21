@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Proptypes from 'prop-types';
-import { setScore } from '../../redux/actions';
 import { fetchQuestions } from '../../redux/actions/actionQuest';
 import '../../App.css';
 import Header from './Header';
 import Button from '../button';
+import { saveToLocalStorage } from '../../services/localStorage';
+import { setScore } from '../../redux/actions';
 
 class TriviaScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userAnswer: null,
       currentIndex: 0,
       isDisabled: true,
       quizEnd: false,
@@ -21,6 +21,8 @@ class TriviaScreen extends Component {
     };
   }
 
+  setIntervalId = '';
+
   componentDidMount() {
     const { fetchQuestionsProp } = this.props;
     fetchQuestionsProp();
@@ -28,15 +30,18 @@ class TriviaScreen extends Component {
   }
 
   handleTimer = () => {
-    const time = setInterval(() => {
+    this.setIntervalId = setInterval(() => {
       const { timer } = this.state;
       this.setState({
         timer: timer - 1,
       }, () => {
         if (timer === 1) {
-          console.log(timer);
-          clearInterval(time);
-          this.setState({ isDisabled: false, timer: 30 });
+          clearInterval(this.setIntervalId);
+          this.setState({ isDisabled: false });
+          document.querySelectorAll('.answer').forEach((answer) => {
+            const button = answer;
+            button.disabled = true;
+          });
         }
       });
     }, 1000);
@@ -46,28 +51,46 @@ class TriviaScreen extends Component {
 
   nextQuestionHandler = (e) => {
     e.preventDefault();
-    const { currentIndex, userAnswer } = this.state;
+    const { currentIndex } = this.state;
     const { data } = this.props;
 
     if (currentIndex === data.length - 1) return this.finishHandler();
 
-    if (userAnswer === data[currentIndex].correct_answer) {
-      return this.setState({
-        userAnswer: null,
-        shuffledAnswers: undefined,
-        currentIndex: currentIndex + 1,
-        isDisabled: true,
-      }, () => this.handleTimer());
-    }
     return this.setState({
-      userAnswer: null,
       shuffledAnswers: undefined,
       currentIndex: currentIndex + 1,
       isDisabled: true,
+      timer: 30,
     }, () => this.handleTimer());
   };
 
+  scoreService = (time, difficulty) => {
+    const {
+      player,
+      score,
+      assertions,
+      setUserScore,
+    } = this.props;
+    console.log(player);
+
+    const difficulties = {
+      hard: 3,
+      medium: 2,
+      easy: 1,
+    };
+
+    const userScore = {
+      score: score + (10 + (time * difficulties[difficulty])),
+      assertions: assertions + 1,
+    };
+
+    setUserScore(userScore);
+    saveToLocalStorage('state', { player: { ...player, ...userScore } });
+  }
+
   checkAnswer = (choice) => {
+    const { data } = this.props;
+    const { currentIndex, timer } = this.state;
     document.querySelector('.correct-answer').classList.add('green-border');
     document.querySelectorAll('.wrong-answer').forEach((answer) => answer.classList.add('red-border'));
     document.querySelectorAll('.answer').forEach((answer) => {
@@ -75,10 +98,13 @@ class TriviaScreen extends Component {
       button.disabled = true;
     });
 
-    this.setState({
-      userAnswer: choice,
-      isDisabled: false,
-    });
+    clearInterval(this.setIntervalId);
+
+    this.setState({ isDisabled: false });
+
+    if (choice === data[currentIndex].correct_answer) {
+      this.scoreService(timer, data[currentIndex].difficulty);
+    }
   };
 
   shuffle = (array) => {
@@ -136,18 +162,30 @@ class TriviaScreen extends Component {
   }
 
   render() {
-    const { quizEnd, isDisabled, currentIndex } = this.state;
+    const {
+      quizEnd, isDisabled, currentIndex, timer,
+    } = this.state;
     const { data, isFetchingToken, isFetchingQuestion } = this.props;
 
     if (isFetchingToken || isFetchingQuestion) return <Header />;
     if (quizEnd) return <Redirect to="/feedback" />;
-    console.log('renderizando', data);
+
     return (
       <div>
         <Header />
         <div>
           <h3 data-testid="question-category">{data[currentIndex].category}</h3>
           <h3 data-testid="question-text">{data[currentIndex].question}</h3>
+          <div>
+            Timer:
+            {' '}
+            {timer}
+          </div>
+          <p>
+            Dificuldade:
+            {' '}
+            {data[currentIndex].difficulty}
+          </p>
           <span>{`Questão ${currentIndex + 1} de ${data.length}`}</span>
         </div>
         <div>{this.optionsAnswers(data)}</div>
@@ -170,11 +208,14 @@ const mapStateToProps = (state) => ({
   data: state.questionsReducer.questions,
   isFetchingToken: state.tokenReducer.isFetchingToken,
   isFetchingQuestion: state.questionsReducer.isFetchingQuestion,
+  score: state.userDataReducer.player.score,
+  assertions: state.userDataReducer.player.assertions,
+  player: state.userDataReducer.player,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchQuestionsProp: () => dispatch(fetchQuestions()),
-  setScoreProp: (score) => dispatch(setScore(score)),
+  setUserScore: (data) => dispatch(setScore(data)),
 });
 
 TriviaScreen.propTypes = {
@@ -182,7 +223,9 @@ TriviaScreen.propTypes = {
   data: Proptypes.objectOf(Proptypes.string).isRequired,
   isFetchingToken: Proptypes.func.isRequired,
   isFetchingQuestion: Proptypes.func.isRequired,
-  // setScoreProp: Proptypes.func.isRequired,
+  setUserScore: Proptypes.func.isRequired,
+  score: Proptypes.number.isRequired,
+  assertions: Proptypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TriviaScreen);

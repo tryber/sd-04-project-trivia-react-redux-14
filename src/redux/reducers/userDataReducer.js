@@ -20,7 +20,7 @@ const userDataReducer = (state = initialState, action) => {
         ...state,
         player: {
           ...state.player,
-          score: action.score,
+          ...action.userScore,
         },
       };
     case SEND_URL_GRAVATAR:
