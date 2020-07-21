@@ -5,12 +5,12 @@ import { Provider } from 'react-redux';
 import logo from './trivia.png';
 import './App.css';
 import store from './redux/store';
-import StartScreen from './components/startScreen';
-import SettingsScreen from './components/settingsScreen';
-import TriviaScreen from './components/triviaScreen';
+import StartScreen from './pages/StartScreen';
+import SettingsScreen from './pages/SettingsScreen';
+import TriviaScreen from './pages/TriviaScreen';
 import FeedbackScreen from './pages/FeedbackScreen';
 import RankingScreen from './pages/RankingScreen';
-import NotFound from './components/notFound';
+import NotFound from './pages/NotFound';
 
 class App extends Component {
   render() {

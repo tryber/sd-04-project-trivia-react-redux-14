@@ -7,8 +7,8 @@ import { fetchQuestions } from '../../redux/actions/actionQuest';
 import { saveToLocalStorage } from '../../services/localStorage';
 import { setScore } from '../../redux/actions';
 import '../../App.css';
-import Header from './Header';
-import Button from '../button';
+import Header from '../../components/header/Header';
+import Button from '../../components/button';
 
 class TriviaScreen extends Component {
   constructor(props) {
@@ -72,7 +72,9 @@ class TriviaScreen extends Component {
   };
 
   scoreService = (time, difficulty) => {
-    const { player, score, assertions, setUserScore } = this.props;
+    const {
+      player, score, assertions, setUserScore,
+    } = this.props;
     console.log(player);
 
     const difficulties = {
@@ -163,7 +165,9 @@ class TriviaScreen extends Component {
   };
 
   render() {
-    const { quizEnd, isDisabled, currentIndex, timer } = this.state;
+    const {
+      quizEnd, isDisabled, currentIndex, timer,
+    } = this.state;
     const { data, isFetchingToken, isFetchingQuestion } = this.props;
 
     if (isFetchingToken || isFetchingQuestion) return <Header />;
