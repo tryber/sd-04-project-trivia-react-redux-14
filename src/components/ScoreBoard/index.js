@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Proptypes from 'prop-types';
 import './ScoreBoard.css';
 import './css-circular-prog-bar.css';
 
@@ -20,10 +21,10 @@ class ScoreBoard extends Component {
 
     return (
       <div className="ScoreBoard">
+        <div data-testid="feedback-total-question" className="invisible">{assertions}</div>
         <section>
           <h2>Acertos</h2>
           <div className="progress-circle">
-            <div hidden>{assertions}</div>
             <span>{`${assertions}/${questions}`}</span>
             <div className="left-half-clipper">
               <div className="first50-bar" />
@@ -39,5 +40,11 @@ class ScoreBoard extends Component {
     );
   }
 }
+
+ScoreBoard.propTypes = {
+  score: Proptypes.number.isRequired,
+  assertions: Proptypes.number.isRequired,
+  questions: Proptypes.objectOf(Proptypes.string).isRequired,
+};
 
 export default ScoreBoard;
