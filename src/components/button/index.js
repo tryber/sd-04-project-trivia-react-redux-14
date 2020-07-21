@@ -1,10 +1,15 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-const Button = ({ type, isDisabled, children, ...props }) => {
+const Button = ({
+  type,
+  isDisabled,
+  children,
+  ...props
+}) => {
   if (isDisabled) {
     return (
-      <button {...props} disabled>
+      <button {...props} type={`${type}`} disabled>
         {children}
       </button>
     );

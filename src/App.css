@@ -13,11 +13,13 @@
 }
 
 .red-border {
-  border: 1px solid red;
+  border: 3px solid red;
+  background-color: red;
 }
 
 .green-border {
-  border: 1px solid green;
+  border: 3px solid rgb(6, 240, 15);
+  background-color: rgb(6, 240, 15);
 }
 
 .trivia-screen {

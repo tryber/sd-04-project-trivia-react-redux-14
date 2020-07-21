@@ -5,6 +5,7 @@ import Proptypes from 'prop-types';
 
 import { fetchToken } from '../../redux/actions/actionToken';
 import { sendUserData } from '../../redux/actions';
+import { saveToLocalStorage } from '../../services/localStorage';
 import '../../App.css';
 import Button from '../button';
 
@@ -23,12 +24,15 @@ class StartScreen extends Component {
   handleUser = (gravatarEmail, name) => {
     const { sendUserDataProp } = this.props;
     const player = {
-      name,
-      assertions: 0,
-      score: 0,
-      gravatarEmail,
+      player: {
+        name,
+        assertions: 0,
+        score: 0,
+        gravatarEmail,
+      },
     };
-    sendUserDataProp(player);
+    sendUserDataProp(player.player);
+    saveToLocalStorage('state', { ...player });
   };
 
   handleInput = (type, event) => {
