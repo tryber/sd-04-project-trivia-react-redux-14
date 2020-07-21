@@ -29,13 +29,13 @@ class FeedbackScreen extends Component {
   }
 
   renderMessage = (score) => (
-    <>
+    <div>
       <div className="ranking-status">
         <img src={Medal} alt="In rank medal" />
         <h2>Você esta no Ranking!</h2>
       </div>
       <h2 data-testid="feedback-text">{score > 3 ? messages.goodScore : messages.badScore}</h2>
-    </>
+    </div>
   );
 
   handleNewGame = () => {

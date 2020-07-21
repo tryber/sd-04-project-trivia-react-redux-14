@@ -1,16 +1,16 @@
 .FeedbackScreen {
+  align-items: center;
+  color: white;
   display: flex;
   flex-flow: column;
   justify-content: center;
-  align-items: center;
-  color: white;
 }
 
 .FeedbackScreen .ranking-status {
+  align-items: center;
   display: flex;
   flex-flow: column;
   justify-content: center;
-  align-items: center;
 }
 
 .FeedbackScreen .ranking-status > img {
