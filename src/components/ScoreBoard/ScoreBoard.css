@@ -1,8 +1,8 @@
 .ScoreBoard {
+  align-items: center;
+  color: white;
   display: flex;
   flex-flow: column;
-  color: white;
-  align-items: center;
 }
 
 .ScoreBoard .score {
