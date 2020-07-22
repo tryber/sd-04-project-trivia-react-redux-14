@@ -64,8 +64,8 @@ class TriviaScreen extends Component {
       {
         shuffledAnswers: undefined,
         currentIndex: currentIndex + 1,
-        isDisabled: true,
         timer: 30,
+        isDisabled: true,
       },
       () => this.handleTimer(),
     );
