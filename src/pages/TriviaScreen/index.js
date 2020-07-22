@@ -178,7 +178,7 @@ class TriviaScreen extends Component {
         <Header />
         <div>
           <h3 data-testid="question-category">{data[currentIndex].category}</h3>
-          <h3 data-testid="question-text">{data[currentIndex].question}</h3>
+          <h3 data-testid="question-text">{data[currentIndex].question.split('&quot;').join('"')}</h3>
           <span>{`Timer: ${timer}`}</span>
           <span>{`Dificuldade: ${data[currentIndex].difficulty}`}</span>
           <span>{`Questão ${currentIndex + 1} de ${data.length}`}</span>
