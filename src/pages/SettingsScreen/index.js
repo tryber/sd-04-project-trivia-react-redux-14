@@ -51,24 +51,24 @@ class SettingsScreen extends Component {
 
   render() {
     const { isFetching } = this.props;
-    if (isFetching) return <div>{console.log(isFetching)}</div>;
+    if (isFetching) return <div>Loading...</div>;
     return (
       <div className="settings-screen">
-        <h1 data-testid="settings-title">TELA DE CONFIGURAÇÕES</h1>
+        <h1 data-testid="settings-title">SETTINGS</h1>
         <div>
-          <span>Escolha uma categoria</span>
+          <span>Choose a category</span>
           {this.renderCategories()}
         </div>
         <div>
-          <span>Escolha a dificuldade</span>
+          <span>Choose the difficulty</span>
           {this.renderDifficulty()}
         </div>
         <div>
-          <span>Escolha o tipo</span>
+          <span>Choose the type</span>
           {this.renderType()}
         </div>
         <Link to="/">
-          <Button type="button">Salvar e Voltar</Button>
+          <Button type="button">Save and Return</Button>
         </Link>
       </div>
     );

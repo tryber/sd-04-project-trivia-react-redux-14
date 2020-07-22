@@ -21,13 +21,12 @@ class Ranking extends Component {
     return (
       <div className="ranking-screen">
         <h2 data-testid="ranking-title">Ranking</h2>
-        Ranking page
         <ol>
           {this.renderRanking()}
         </ol>
         <Link to="/">
           <Button type="button" data-testid="btn-go-home">
-            Voltar para o início
+            Back to home
           </Button>
         </Link>
       </div>

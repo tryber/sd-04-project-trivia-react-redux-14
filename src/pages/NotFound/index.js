@@ -7,7 +7,7 @@ class NotFound extends Component {
       <div className="trivia-screen">
         PAGE NOT FOUND
         <Link to="/">
-          Voltar para o início
+          Back to start
         </Link>
       </div>
     );

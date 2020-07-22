@@ -60,7 +60,7 @@ class StartScreen extends Component {
 
   renderFieldsetInputs = () => (
     <fieldset className="fieldset-inputs-start-screen">
-      <label htmlFor="input-gravatar-email">Email do Gravatar:</label>
+      <label htmlFor="input-gravatar-email">{`Gravatar's Email:`}</label>
       <input
         type="email"
         data-testid="input-gravatar-email"
@@ -69,7 +69,7 @@ class StartScreen extends Component {
         onChange={(e) => this.handleInput('email', e)}
         required
       />
-      <label htmlFor="input-player-name">Nome do Jogador:</label>
+      <label htmlFor="input-player-name">{`Player's Name:`}</label>
       <input
         type="text"
         data-testid="input-player-name"
@@ -91,7 +91,7 @@ class StartScreen extends Component {
             className="btn-settings"
             id="btn-settings"
           >
-            OPÇÕES...
+            Settings
           </Button>
         </label>
       </Link>
@@ -104,7 +104,7 @@ class StartScreen extends Component {
           id="btn-play"
           onClick={(e) => this.playTrivia(e)}
         >
-          JOGAR!
+          Play!
         </Button>
       </label>
     </fieldset>

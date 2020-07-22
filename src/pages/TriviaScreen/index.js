@@ -181,8 +181,8 @@ class TriviaScreen extends Component {
           <h3 data-testid="question-category">{data[currentIndex].category}</h3>
           <h3 data-testid="question-text">{data[currentIndex].question.split('&quot;').join('"')}</h3>
           <span>{`Timer: ${timer}`}</span>
-          <span>{`Dificuldade: ${data[currentIndex].difficulty}`}</span>
-          <span>{`Questão ${currentIndex + 1} de ${data.length}`}</span>
+          <span>{`Difficulty: ${data[currentIndex].difficulty}`}</span>
+          <span>{`Question ${currentIndex + 1} of ${data.length}`}</span>
         </div>
         <div>{this.optionsAnswers(data)}</div>
         {!isDisabled && (
@@ -192,7 +192,7 @@ class TriviaScreen extends Component {
             data-testid="btn-next"
             onClick={(e) => this.nextQuestionHandler(e)}
           >
-            Próxima
+            Next Question
           </Button>
         )}
       </div>
