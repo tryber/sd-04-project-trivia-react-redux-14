@@ -1,0 +1,15 @@
+.ScoreBoard {
+  align-items: center;
+  color: white;
+  display: flex;
+  flex-flow: column;
+}
+
+.ScoreBoard .score {
+  font-size: 40px;
+  font-weight: 800;
+}
+
+.ScoreBoard .invisible {
+  opacity: 0;
+}
