@@ -19,11 +19,11 @@ const receiveSuccessQuestion = (apiResponse) => ({
   questions: apiResponse.results,
 });
 
-export const fetchQuestions = () => (dispatch) => {
+export const fetchQuestions = (settings) => (dispatch) => {
   dispatch(fetchingDataQuestion(true));
-
+  console.log(settings);
   return (
-    getQuestions().then((data) => {
+    getQuestions(settings).then((data) => {
       if (data.response_code === 0) {
         dispatch(receiveSuccessQuestion(data));
         dispatch(fetchingDataQuestion(false));

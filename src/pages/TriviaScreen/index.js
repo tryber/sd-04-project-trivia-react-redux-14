@@ -23,8 +23,9 @@ class TriviaScreen extends Component {
   }
 
   componentDidMount() {
-    const { fetchQuestionsProp } = this.props;
-    fetchQuestionsProp();
+    const { fetchQuestionsProp, settings } = this.props;
+
+    fetchQuestionsProp(settings);
     this.handleTimer();
   }
 
@@ -206,10 +207,11 @@ const mapStateToProps = (state) => ({
   score: state.userDataReducer.player.score,
   assertions: state.userDataReducer.player.assertions,
   player: state.userDataReducer.player,
+  settings: state.settingsReducer.settings,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchQuestionsProp: () => dispatch(fetchQuestions()),
+  fetchQuestionsProp: (settings) => dispatch(fetchQuestions(settings)),
   setUserScore: (data) => dispatch(setScore(data)),
 });
 
@@ -222,6 +224,7 @@ TriviaScreen.propTypes = {
   score: Proptypes.number.isRequired,
   assertions: Proptypes.number.isRequired,
   player: Proptypes.objectOf(Proptypes.string).isRequired,
+  settings: Proptypes.objectOf(Proptypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TriviaScreen);

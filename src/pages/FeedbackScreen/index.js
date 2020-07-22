@@ -9,12 +9,6 @@ import ScoreBoard from '../../components/ScoreBoard';
 import Button from '../../components/button';
 import Header from '../../components/header';
 
-// const mock = {
-//   numQuestions: 5,
-//   assertions: 4,
-//   score: 700,
-// };
-
 const messages = {
   goodAssertion: 'Mandou bem!',
   badAssertion: 'Podia ser melhor...',
