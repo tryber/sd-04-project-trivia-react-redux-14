@@ -1,0 +1,73 @@
+.trivia-screen {
+  align-items: center;
+  background-color: rgb(15, 15, 15);
+  border: black solid 1px;
+  border-radius: 15px;
+  color: whitesmoke;
+  display: flex;
+  flex-flow: column;
+  font-size: 18px;
+  height: 300px;
+  justify-content: center;
+  width: 375px;
+}
+
+form {
+  background-color: rgb(15, 15, 15);
+  /* border: tomato solid 1px; */
+  display: flex;
+  flex-flow: column;
+  font-weight: 500;
+  height: 250px;
+  justify-content: space-evenly;
+}
+
+.fieldset-input {
+  align-items: stretch;
+  border: none;
+  display: flex;
+  flex-flow: column;
+  height: 150px;
+  justify-content: space-around;
+  width: 300px;
+}
+
+input {
+  /* border: none; */
+  border-radius: 10px;
+  height: 30px;
+  margin-bottom: 10px;
+  padding-left: 8px;
+}
+
+.fieldset-buttons {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+  margin-top: 15px;
+  width: 300px;
+}
+
+button {
+  border-radius: 10px;
+  color: whitesmoke;
+  font-size: 14px;
+  font-weight: 700;
+  height: 45px;
+  opacity: 0.7;
+  transform: scale(0.98);
+  width: 135px;
+}
+
+.btn-play {
+  background-color: rgb(50, 121, 50);
+}
+
+.btn-settings {
+  background-color: rgb(15, 105, 200);
+}
+
+button:hover {
+  transform: scale(1);
+  opacity: 1;
+}

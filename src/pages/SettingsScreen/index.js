@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 import { fetchCategories, setSettings } from '../../redux/actions/actionSettings';
 import Button from '../../components/button';
+import './index.css'
 
 class SettingsScreen extends Component {
   componentDidMount() {
@@ -54,16 +55,12 @@ class SettingsScreen extends Component {
     if (isFetching) return <div>Loading...</div>;
     return (
       <div className="settings-screen">
-        <h1 data-testid="settings-title">SETTINGS</h1>
-        <div>
+        <h2 data-testid="settings-title">SETTINGS</h2>
+        <div className="trivia-settings">
           <span>Choose a category</span>
           {this.renderCategories()}
-        </div>
-        <div>
           <span>Choose the difficulty</span>
           {this.renderDifficulty()}
-        </div>
-        <div>
           <span>Choose the type</span>
           {this.renderType()}
         </div>

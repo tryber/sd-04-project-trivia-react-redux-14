@@ -6,7 +6,7 @@ import Proptypes from 'prop-types';
 import { fetchToken } from '../../redux/actions/actionToken';
 import { sendUserData } from '../../redux/actions';
 import { saveToLocalStorage } from '../../services/localStorage';
-import '../../App.css';
+import './index.css';
 import Button from '../../components/button';
 
 class StartScreen extends Component {
@@ -59,7 +59,7 @@ class StartScreen extends Component {
   };
 
   renderFieldsetInputs = () => (
-    <fieldset className="fieldset-inputs-start-screen">
+    <div className="fieldset-input">
       <label htmlFor="input-gravatar-email">{`Gravatar's Email:`}</label>
       <input
         type="email"
@@ -78,11 +78,11 @@ class StartScreen extends Component {
         onChange={(e) => this.handleInput('name', e)}
         required
       />
-    </fieldset>
+    </div>
   );
 
   renderFieldsetButtons = () => (
-    <fieldset className="fieldset-buttons-start-screen">
+    <div className="fieldset-buttons">
       <Link to="/settings">
         <label htmlFor="btn-settings">
           <Button
@@ -91,7 +91,7 @@ class StartScreen extends Component {
             className="btn-settings"
             id="btn-settings"
           >
-            Settings
+            Settings...
           </Button>
         </label>
       </Link>
@@ -107,7 +107,7 @@ class StartScreen extends Component {
           Play!
         </Button>
       </label>
-    </fieldset>
+    </div>
   );
 
   render() {
@@ -117,7 +117,7 @@ class StartScreen extends Component {
     }
     return (
       <div className="trivia-screen">
-        <form className="form-start-screen">
+        <form>
           {this.renderFieldsetInputs()}
           {this.renderFieldsetButtons()}
         </form>
