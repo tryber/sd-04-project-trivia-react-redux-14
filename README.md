@@ -422,7 +422,7 @@ Se ainda houver alguma dúvida sobre como entregar seu projeto, [aqui tem um vid
 
 ---
 
-### REVISANDO UM PULL REQUEST
+### REVISANDO UM PULL REQUEST:
 
 ⚠⚠⚠
 
